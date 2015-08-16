@@ -1,3 +1,5 @@
-# Getting started with Play (Java)
+# Play Framework (Java) that uses MySQL as DB
 
-This project demonstrate how to create a simple CRUD application with Play. A screencast to the project exist on [playframework.com](http://playframework.com)
+This is a school project that implements simple conections with MySQL database and Materializecss (http://www.materializecss.com/).
+
+Feel free to fork the project!
