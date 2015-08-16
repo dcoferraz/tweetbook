@@ -17,3 +17,17 @@ main {
     background-color: #FFF;
     color: #212121;
 }
+
+
+/*CUSTOM SMALL CARD SIZE*/
+.card.small {
+    height: 250px !important;
+}
+
+.card.small .card-image {
+    height: 80px !important;
+}
+
+.card.small .card-content {
+    height: 80px !important;
+}

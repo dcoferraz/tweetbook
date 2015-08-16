@@ -1,15 +1,18 @@
-@()
+@(posts: List[Post])
 
 @main("Timeline") {
     <div class="container">
         <div class="row">
 
                 <!--LEFT SIDENAV-->
-            <div class="col s3">
+            <div class="col l4 hide-on-med-and-down">
 
                 <ul class="collection with-header">
                     <li class="collection-header">
-                        <h5>Seu menu!</h5>
+                        <h5>Seu menu, @session.get("conected")!</h5>
+                    </li>
+                    <li class="collection-item">
+                        <div>Timeline<a href="/timeline" class="secondary-content"><i class="material-icons">send</i></a></div>
                     </li>
                     <li class="collection-item">
                         <div>Amigos<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
@@ -21,7 +24,16 @@
                         <div>Grupo<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
                     </li>
                     <li class="collection-item">
-                        <div>Meu perfil<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        <div>
+                            Minhas Atividades
+                            <a href="/atividades" class="secondary-content"><i class="material-icons">send</i></a>
+                        </div>
+                    </li>
+                    <li class="collection-item">
+                        <div>
+                            Meu perfil
+                            <a href="/perfil" class="secondary-content"><i class="material-icons">send</i></a>
+                        </div>
                     </li>
                 </ul>
 
@@ -29,21 +41,23 @@
             </div>
 
                 <!--RIGHT SIDENAV-->
-            <div class="col s9">
+            <div class="col l8 s12">
                 <div class="row">
 
                     <div class="row">
                         <div class="col s12">
                             <ul class="tabs teal-text">
-                                <li class="tab col s3"><a class="active" href="#todo-mundo">Todo mundo</a></li>
+                                <li class="tab col s3"><a class="active" href="#todo-mundo">Todos</a></li>
                                 <li class="tab col s3"><a href="#grupo">Grupo</a></li>
-                                <li class="tab col s3"><a href="#novo-evento">Novo Evento</a></li>
-                                <li class="tab col s3 disabled"><a href="#">Novo Grupo</a></li>
+                                <li class="tab col s3"><a href="#novo-evento">+ Evento</a></li>
+                                <li class="tab col s3 disabled"><a href="#">+ Grupo</a></li>
                             </ul>
                         </div>
                         <div id="todo-mundo" class="col s12">
-                            <form>
+                            <form method="POST" action="@routes.Timeline.newPost()">
                                 <h5>Compartilhe sua ideia... com todo mundo!</h5>
+
+                                <input type="hidden" value="@session.get("conectedId")" name="idPessoa"/>
 
                                 <div class="input-field col s12">
                                     <textarea id="post" name="post" class="materialize-textarea validate" length="180"></textarea>
@@ -52,8 +66,7 @@
 
                                 <br>
                                 <div class="col s12">
-                                    <buttton class="waves-effect waves-teal btn secondary-content btn-timeline right">
-                                        Send</buttton>
+                                    <button class="waves-effect waves-teal btn secondary-content btn-timeline right">Send</button>
                                 </div>
                             </form>
 
@@ -64,7 +77,7 @@
 
                                 <div class="input-field col s12">
                                     <textarea id="post" name="post" class="materialize-textarea validate" length="180"></textarea>
-                                    <label for="post">Post com todo mundo</label>
+                                    <label for="post">Post com um grupo</label>
                                 </div>
 
                                 <br>
@@ -99,6 +112,22 @@
 
             </div>
 
+            @for(post <- posts) {
+                <div class="col s12 l12">
+                    <div class="card small">
+                        <div class="card-image">
+                            <span class="card-title black-text">por  @post.getIdPessoa - @post.getHora</span>
+                        </div>
+                        <div class="card-content">
+                            <p>@post.getConteudo</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Curtir</a>
+                            <a href="#">Comentar</a>
+                        </div>
+                    </div>
+                </div>
+            }
 
         </div>
 

@@ -5,8 +5,11 @@
 # Home page
 GET         /                    controllers.Index.index()
 POST        /                    controllers.Index.login()
+GET         /logout              controllers.Index.logout()
 GET         /newUser             controllers.User.novo()
 POST        /newUser             controllers.User.criar()
+GET         /timeline            controllers.Timeline.index()
+POST        /timeline/newpost    controllers.Timeline.newPost()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

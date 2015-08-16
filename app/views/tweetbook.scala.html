@@ -1,25 +1,28 @@
+@()
+
 @main("Bem vindo ao TweetBook") {
 
     <div class="container">
         <div class="center">
             <h1>Tweetbook</h1>
-                        <p>A melhor combina&ccedil;&atilde;o!</p>
+            <p>A melhor combina&ccedil;&atilde;o!</p>
+        </div>
+
+
+        <div class="divider"></div>
+
+        <div class="row">
+            <div class="col s12">
+                <div class="col s12 center">
+                    <h3>Fa&ccedil;a seu login</h3>
+                </div>
+                <form method="POST" action="@routes.Index.login()">
+                    <div class="input-field col s6 ">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="login" name="login" type="text" class="validate center" required>
+                        <label for="login">Login</label>
                     </div>
-
-                    <div class="divider"></div>
-
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="col s12 center">
-                                <h3>Fa&ccedil;a seu login</h3>
-                            </div>
-                            <form method="POST" action="@routes.Index.login()">
-                                <div class="input-field col s6 ">
-                                    <i class="material-icons prefix">account_circle</i>
-                                    <input id="login" name="login" type="text" class="validate center" required>
-                                    <label for="login">Login</label>
-                                </div>
-                                <div class="input-field col s6">
+                    <div class="input-field col s6">
                         <i class="material-icons prefix">lock</i>
                         <input id="password" name="password" type="password" class="validate center" required>
                         <label for="password">Senha</label>

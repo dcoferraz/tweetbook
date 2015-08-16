@@ -23,32 +23,28 @@
             <nav class="teal">
                 <div class="nav-wrapper">
                     <a href="/" class="brand-logo">Tweetbook</a>
-                    <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">
-                        menu</i>
-                    </a>
-                    <ul class="right hide-on-med-and-down">
-                        <li><a href="/timeline">Timeline</a></li>
-                        <li><a href="/atividades">Minhas Atividades</a></li>
-                        <li><a href="/perfil">Meu perfil</a></li>
-                        <li><a href="/conexoes">Conex&otilde;es</a></li>
-                        <li><a href="/configuracoes">Configura&ccedil;&otilde;es</a></li>
-                        <li>
-                            <a class="dropdown-button" href="#!" data-activates="dropdown-perfil">
-                                <img src="http://alisfashions.com/wp-content/uploads/2015/05/cool-stylish-girls-profile-pics-ti8l8xo0.jpg"
-                                class="circle responsive-img left"
-                                height="48px" width="48px"/>
-                                Perfil
-                                <i class="material-icons right">arrow_drop_down</i>
-                            </a>
-                        </li>
-                    </ul>
+                    @if(session.get("showMenu").equals("true")) {
+
+                        <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">
+                            menu</i>
+                        </a>
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="/timeline">Timeline</a></li>
+                            <li>
+                                <a class="dropdown-button" href="#!" data-activates="dropdown-perfil">
+                                    @session.get("conected")
+                                    <i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
+                        </ul>
+                    }
                 </div>
                 <ul class="side-nav" id="mobile-demo">
+                    <li><a href="/perfil">Meu perfil</a></li>
                     <li><a href="/timeline">Timeline</a></li>
                     <li><a href="/atividades">Minhas Atividades</a></li>
-                    <li><a href="/perfil">Meu perfil</a></li>
-                    <li><a href="/conexoes">Conex&otilde;es</a></li>
-                    <li><a href="/configuracoes">Configura&ccedil; &otilde;es</a></li>
+                    <li><a href="/grupo">Grupo</a></li>
+                    <li><a href="/logout" class="materialize-red-text">Sair</a></li>
                 </ul>
             </nav>
 
@@ -56,7 +52,7 @@
             <ul id="dropdown-perfil" class="dropdown-content">
                 <li><a href="#!">editar</a></li>
                 <li class="divider"></li>
-                <li><a href="#!" class="materialize-red-text">sair</a></li>
+                <li><a href="/logout" class="materialize-red-text">sair</a></li>
             </ul>
         </div>
 

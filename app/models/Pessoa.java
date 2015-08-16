@@ -87,7 +87,7 @@ public class Pessoa extends Model{
 
     /* ACCESS TO DB */
 
-    public Boolean authLogin(String nome, String senha){
+    public Long authLogin(String nome, String senha){
 
         System.out.println("/*****Received*****/\n Nome: " + nome + "\n Senha: " + senha);
 
@@ -100,17 +100,27 @@ public class Pessoa extends Model{
                         .findUnique();
 
         if(p != null) {
-            System.out.println("Found id: " + p.getId());
-
-
             if (p.getId() != null) {
-                return true;
+                return p.getId();
+            }
+        }
+        return null;
+    }
+
+
+    public String getById(String id){
+
+        Pessoa p = Ebean.find(Pessoa.class)
+                        .select("id")
+                        .where().eq("id", Long.parseLong(id))
+                        .findUnique();
+
+        if(p != null) {
+            if (p.getId() != null) {
+                return p.getNome();
             }
         }
 
-
-
-        return false;
-
+        return null;
     }
 }

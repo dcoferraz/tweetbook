@@ -9,9 +9,18 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
-public class Index extends Controller{
+public class Index extends Controller {
 
     public Result index() {
+
+        String isConected = session().get("conected");
+
+        if (isConected != null) {
+            session().put("showMenu", "true");
+        } else {
+            session().put("showMenu", "false");
+        }
+
         return ok(tweetbook.render());
     }
 
@@ -28,13 +37,32 @@ public class Index extends Controller{
 
             Pessoa p = new Pessoa();
 
-            if(p.authLogin(form.get("login"), form.get("password"))){
-                return ok(timeline.render());
-            }else{
+
+            //TODO: get id from authLogin and save in session
+
+            Long pessoaId = p.authLogin(form.get("login"), form.get("password"));
+
+            if (pessoaId != null) {
+
+                session().put("conected", form.get("login"));
+                session().put("showMenu", "true");
+                session().put("conectedId", pessoaId.toString());
+
+                return redirect("/timeline");
+
+            } else {
                 return ok(error.render("Login/senha incorreto! Tente de novo! :)"));
             }
 
         }
+    }
+
+
+    public Result logout() {
+        /*CLEAR SESSION*/
+        session().clear();
+
+        return redirect("/");
     }
 
 }
