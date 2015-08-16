@@ -7,10 +7,10 @@ import play.data.validation.Constraints.Required;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.List;
 
 @Entity
-public class Pessoa extends Model{
+public class Pessoa extends Model {
+
 
     @Id
     private Long id;
@@ -87,7 +87,7 @@ public class Pessoa extends Model{
 
     /* ACCESS TO DB */
 
-    public Long authLogin(String nome, String senha){
+    public Long authLogin(String nome, String senha) {
 
         System.out.println("/*****Received*****/\n Nome: " + nome + "\n Senha: " + senha);
 
@@ -96,10 +96,10 @@ public class Pessoa extends Model{
                 Ebean.find(Pessoa.class)
                         .select("id")
                         .where().eq("nome", nome)
-                                .eq("senha", senha)
+                        .eq("senha", senha)
                         .findUnique();
 
-        if(p != null) {
+        if (p != null) {
             if (p.getId() != null) {
                 return p.getId();
             }
@@ -108,19 +108,19 @@ public class Pessoa extends Model{
     }
 
 
-    public String getById(String id){
+    public Pessoa getById(Long id) {
 
         Pessoa p = Ebean.find(Pessoa.class)
-                        .select("id")
-                        .where().eq("id", Long.parseLong(id))
-                        .findUnique();
+                .where().eq("id", id)
+                .findUnique();
 
-        if(p != null) {
+        if (p != null) {
             if (p.getId() != null) {
-                return p.getNome();
+                return p;
             }
         }
 
         return null;
     }
+
 }

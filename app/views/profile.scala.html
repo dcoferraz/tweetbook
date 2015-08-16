@@ -1,0 +1,54 @@
+@(pessoa: Pessoa)
+
+@main("Meu Perfil") {
+
+    <div class="container center">
+        <h1>Edite seu usu&aacute;rio</h1>
+        <div class="row">
+            <div class="col s12">
+                <form method="POST" action="@routes.User.editar()">
+                    <input type="hidden" name="id" value="@pessoa.getId"/>
+
+                    <div class="input-field col s6">
+                        <input id="nome" name="nome" type="text" class="validate" value="@pessoa.getNome()" required>
+                        <label for="nome">Seu Nome</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="senha" name="senha" type="password" class="validate" value="@pessoa.getSenha" required>
+                        <label for="senha">Senha</label>
+                    </div>
+
+                    <div class="input-field col s6 offset-s6">
+                        <input id="urlImagem" name="urlImagem" type="url" class="validate" value="@pessoa.getUrlImagem()" required>
+                        <label for="urlImagem">URL da imagem de perfil</label>
+                    </div>
+
+                    <div class="input-field col s3 offset-s6">
+                        <input name="sexo" class="with-gap" type="radio" id="sexo1" value="M" @if(pessoa.getSexo().equals("M")){checked}/>
+                        <label for="sexo1">Masculino</label>
+                    </div>
+
+                    <div class="input-field col s3">
+                        <input name="sexo" class="with-gap" type="radio" id="sexo2" value="F" @if(pessoa.getSexo().equals("F")){checked}/>
+                        <label for="sexo2">Feminino</label>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <input id="cidade" name="cidade" type="text" class="validate" value="@pessoa.getCidade()">
+                        <label for="cidade">Cidade</label>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <input id="estado" name="estado" type="text" class="validate" value="@pessoa.getEstado()">
+                        <label for="estado">Estado</label>
+                    </div>
+
+                    <div class="col s12">
+                        <button class="btn waves-effect right">Criar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+}

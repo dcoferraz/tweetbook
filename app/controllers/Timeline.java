@@ -22,9 +22,9 @@ public class Timeline extends Controller {
 
         List<Post> lp = p.timelinePosts();
 
-        for(Post post : lp){
+        /*for(Post post : lp){
             System.out.printf("Post id:" + post.getId().toString());
-        }
+        }*/
 
         //timeline.render(lp)
         return ok(timeline.render(lp));
