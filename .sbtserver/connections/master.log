@@ -1,0 +1,16 @@
+New log file opened at Sat Aug 15 18:50:13 BRT 2015 by 18384@dani-dell
+Taking next connection to: 63148
+New client attempting to connect on port: 63149-63148
+  Address = /192.168.25.179:63148
+This client on port 63149 has uuid 833d8918-3731-40e0-8dea-777d5f799a4d configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-833d8918-3731-40e0-8dea-777d5f799a4d
+Taking next connection to: 63148
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 63148
+Checking to see if clients are empty...
+No non-daemon clients connected after 3 min. Shutting down.
+Server socket thread exiting.
+0 clients open, will close them...
+All client sockets have been closed.
+Closing the 18384@dani-dell logs at Sat Aug 15 18:56:14 BRT 2015, goodbye.
