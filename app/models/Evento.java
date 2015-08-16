@@ -16,7 +16,7 @@ public class Evento extends Model{
     private Long id;
 
     @Required
-    private Long idUsuario;
+    private Long idPessoa;
 
     private String nome;
     private String descricao;

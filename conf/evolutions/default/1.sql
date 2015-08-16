@@ -5,7 +5,7 @@
 
 create table amigo (
   id                        bigint auto_increment not null,
-  id_usuario                bigint,
+  id_pessoa                 bigint,
   id_amigo                  bigint,
   hora                      datetime(6),
   ativo                     tinyint(1) default 0,
@@ -14,7 +14,7 @@ create table amigo (
 
 create table evento (
   id                        bigint auto_increment not null,
-  id_usuario                bigint,
+  id_pessoa                 bigint,
   nome                      varchar(255),
   descricao                 varchar(255),
   cidade                    varchar(255),
@@ -35,6 +35,7 @@ create table grupo (
 create table pessoa (
   id                        bigint auto_increment not null,
   nome                      varchar(255),
+  senha                     varchar(255),
   url_imagem                varchar(255),
   sexo                      varchar(255),
   cidade                    varchar(255),
@@ -44,7 +45,7 @@ create table pessoa (
 
 create table post (
   id                        bigint auto_increment not null,
-  id_usuario                bigint,
+  id_pessoa                 bigint,
   conteudo                  varchar(255),
   image_url                 varchar(255),
   hora                      datetime(6),

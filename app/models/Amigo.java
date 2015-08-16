@@ -12,7 +12,7 @@ public class Amigo extends Model{
 
     @Id
     private Long id;
-    private Long idUsuario;
+    private Long idPessoa;
     private Long idAmigo;
 
     private DateTime hora;

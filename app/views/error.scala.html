@@ -1,0 +1,65 @@
+@(error: String)
+
+<!DOCTYPE html>
+<link href='http://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+<style>
+    .valign-wrapper {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    }
+    .valign-wrapper.valign {
+    display: block;
+    width: 100%;
+    }
+    body,
+    html {
+    height: 100%;
+    font-family: 'Lato';
+    font-size: 16px;
+    }
+    body {
+    background: #313039;
+    }
+    .overlay {
+    background: rgba(57,57,71,0.75);
+    height: 100%;
+    }
+    .content {
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    }
+    .content h1 {
+    font-size: 9rem;
+    font-weight: 100;
+        margin-top: -50px;
+    }
+    .content h2 {
+    font-size: 2rem;
+    font-weight: 100;
+    }
+</style>
+
+<html>
+    <head>
+        <title>Error</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+
+        <div class="valign-wrapper overlay">
+            <div class="valign content">
+                <h1>Error</h1>
+                <h2>Congrats! Here's the error: <strong>"@error"</strong></h2>
+            </div>
+        </div>
+
+    </body>
+</html>

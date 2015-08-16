@@ -16,7 +16,7 @@ public class Post extends Model{
     private Long id;
 
     @Required
-    private Long idUsuario;
+    private Long idPessoa;
 
     @Basic
     @Required

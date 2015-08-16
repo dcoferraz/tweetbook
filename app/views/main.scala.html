@@ -24,23 +24,40 @@
                 <div class="nav-wrapper">
                     <a href="/" class="brand-logo">Tweetbook</a>
                     <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">
-                        menu</i></a>
+                        menu</i>
+                    </a>
                     <ul class="right hide-on-med-and-down">
                         <li><a href="/timeline">Timeline</a></li>
                         <li><a href="/atividades">Minhas Atividades</a></li>
                         <li><a href="/perfil">Meu perfil</a></li>
                         <li><a href="/conexoes">Conex&otilde;es</a></li>
                         <li><a href="/configuracoes">Configura&ccedil;&otilde;es</a></li>
-                    </ul>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li><a href="/timeline">Timeline</a></li>
-                        <li><a href="/atividades">Minhas Atividades</a></li>
-                        <li><a href="/perfil">Meu perfil</a></li>
-                        <li><a href="/conexoes">Conex&otilde;es</a></li>
-                        <li><a href="/configuracoes">Configura&ccedil;&otilde;es</a></li>
+                        <li>
+                            <a class="dropdown-button" href="#!" data-activates="dropdown-perfil">
+                                <img src="http://alisfashions.com/wp-content/uploads/2015/05/cool-stylish-girls-profile-pics-ti8l8xo0.jpg"
+                                class="circle responsive-img left"
+                                height="48px" width="48px"/>
+                                Perfil
+                                <i class="material-icons right">arrow_drop_down</i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="/timeline">Timeline</a></li>
+                    <li><a href="/atividades">Minhas Atividades</a></li>
+                    <li><a href="/perfil">Meu perfil</a></li>
+                    <li><a href="/conexoes">Conex&otilde;es</a></li>
+                    <li><a href="/configuracoes">Configura&ccedil; &otilde;es</a></li>
+                </ul>
             </nav>
+
+            <!-- Dropdown Structure -->
+            <ul id="dropdown-perfil" class="dropdown-content">
+                <li><a href="#!">editar</a></li>
+                <li class="divider"></li>
+                <li><a href="#!" class="materialize-red-text">sair</a></li>
+            </ul>
         </div>
 
 
@@ -57,12 +74,13 @@
                             Se voce nao usa, e porque nao chegou sua vez ainda. :)</p>
                     </div>
                     <div class="col l4 offset-l2 s12">
-                        <h5 class="white-text">Links</h5>
+                        <h5 class="white-text">Feito com</h5>
                         <ul>
                             <li><a class="grey-text text-lighten-3" href="http://www.rc.unesp.br/" target="_blank">Unesp - Rio Claro</a></li>
                             <li><a class="grey-text text-lighten-3" href="http://playframework.org/" target="_blank">Play Framework</a></li>
                             <li><a class="grey-text text-lighten-3" href="http://securesocial.ws/" target="_blank">Secure Social</a></li>
                             <li><a class="grey-text text-lighten-3" href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4" target="_blank">Facebook Graph API</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://ebean-orm.github.io/docs" target="_blank">Ajave Ebean</a></li>
                         </ul>
                     </div>
                 </div>

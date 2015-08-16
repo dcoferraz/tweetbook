@@ -3,23 +3,23 @@
     <div class="container">
         <div class="center">
             <h1>Tweetbook</h1>
-            <p>A melhor combina&ccedil;&atilde;o!</p>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="row">
-            <div class="col s12">
-                <div class="col s12 center">
-                    <h3>Fa&ccedil;a seu login</h3>
-                </div>
-                <form method="POST" action="@routes.Index.login()">
-                    <div class="input-field col s6 ">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="login" name="login" type="text" class="validate center" required>
-                        <label for="login">Login</label>
+                        <p>A melhor combina&ccedil;&atilde;o!</p>
                     </div>
-                    <div class="input-field col s6">
+
+                    <div class="divider"></div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="col s12 center">
+                                <h3>Fa&ccedil;a seu login</h3>
+                            </div>
+                            <form method="POST" action="@routes.Index.login()">
+                                <div class="input-field col s6 ">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="login" name="login" type="text" class="validate center" required>
+                                    <label for="login">Login</label>
+                                </div>
+                                <div class="input-field col s6">
                         <i class="material-icons prefix">lock</i>
                         <input id="password" name="password" type="password" class="validate center" required>
                         <label for="password">Senha</label>
@@ -28,7 +28,7 @@
                         <button class="btn waves-effect right">Login</button>
                     </div>
                     <div class="input-field col s6">
-                        <a type="button" class="btn waves-effect" href="/novo-usuario">Criar Usu&aacute;rio</a>
+                        <a type="button" class="btn waves-effect" href="/newUser">Criar Usu&aacute;rio</a>
                     </div>
                 </form>
             </div>

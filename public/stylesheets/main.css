@@ -12,3 +12,8 @@ main {
     padding-top: 40px;
     padding-bottom: 20px;
 }
+
+.btn-timeline, .btn-timeline:hover {
+    background-color: #FFF;
+    color: #212121;
+}

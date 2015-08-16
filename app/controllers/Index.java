@@ -1,6 +1,7 @@
 package controllers;
 
 
+import models.Pessoa;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.db.jpa.Transactional;
@@ -21,11 +22,17 @@ public class Index extends Controller{
 
         if (form.data().size() == 0) {
 
-            return badRequest("Expceting some data");
+            return ok(error.render("Expecting some data"));
 
         } else {
 
-            return ok(timeline.render(form.get("login")));
+            Pessoa p = new Pessoa();
+
+            if(p.authLogin(form.get("login"), form.get("password"))){
+                return ok(timeline.render());
+            }else{
+                return ok(error.render("Login/senha incorreto! Tente de novo! :)"));
+            }
 
         }
     }

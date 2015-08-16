@@ -1,8 +1,13 @@
-/**
- * Created by Daniel on 15/08/2015.
- */
-$( document ).ready(function(){
+$(document).ready(function () {
 
     $(".button-collapse").sideNav();
 
-})
+
+    $(".dropdown-button").dropdown({
+        belowOrigin: true
+    });
+
+
+    $('textarea#post').characterCounter();
+
+});
