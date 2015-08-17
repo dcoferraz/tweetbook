@@ -17,11 +17,13 @@ public class Index extends Controller {
 
         if (isConected != null) {
             session().put("showMenu", "true");
+            return redirect("/timeline");
         } else {
             session().put("showMenu", "false");
+            return ok(tweetbook.render());
         }
 
-        return ok(tweetbook.render());
+
     }
 
     @Transactional
