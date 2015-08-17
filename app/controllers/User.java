@@ -34,6 +34,7 @@ public class User extends Controller {
             Pessoa p = new Pessoa();
 
             p.setNome(form.get("nome"));
+
             p.setSenha(form.get("senha"));
             p.setUrlImagem(form.get("urlImagem"));
             p.setSexo(form.get("sexo"));

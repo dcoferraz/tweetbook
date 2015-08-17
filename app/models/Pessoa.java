@@ -24,6 +24,12 @@ public class Pessoa extends Model {
     private String senha;
 
     @Required
+    private String token;
+
+    @Required
+    private String secret;
+
+    @Required
     private String urlImagem;
     private String sexo;
     private String cidade;
@@ -85,7 +91,23 @@ public class Pessoa extends Model {
         this.estado = estado;
     }
 
-    /* ACCESS TO DB */
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+/* ACCESS TO DB */
 
     public Long authLogin(String nome, String senha) {
 

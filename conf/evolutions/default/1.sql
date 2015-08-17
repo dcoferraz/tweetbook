@@ -36,6 +36,8 @@ create table pessoa (
   id                        bigint auto_increment not null,
   nome                      varchar(255),
   senha                     varchar(255),
+  token                     varchar(255),
+  secret                    varchar(255),
   url_imagem                varchar(255),
   sexo                      varchar(255),
   cidade                    varchar(255),
