@@ -44,7 +44,7 @@ public class Application extends Controller {
 
     @Transactional(readOnly = true)
     public Result getPersons() {
-        List<Pessoa> pessoas = (List<Pessoa>) JPA.em().createQuery("select p from Person p").getResultList();
+        List<Pessoa> pessoas = (List<Pessoa>) JPA.em().createQuery("select p from Pessoa p").getResultList();
         return ok(toJson(pessoas));
     }
 }

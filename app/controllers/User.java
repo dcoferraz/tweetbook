@@ -1,9 +1,11 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import play.db.jpa.Transactional;
 import models.Pessoa;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
@@ -17,7 +19,17 @@ public class User extends Controller {
     Pessoa pessoaDAO = new Pessoa();
 
     public Result novo() {
-        return ok(newUser.render());
+
+        Pessoa p;
+        if (session().get("oauth_userData").isEmpty()) {
+            p = new Pessoa();
+        }
+        else {
+            JsonNode json = Json.parse(session().get("oauth_userData"));
+            p = Json.fromJson(json, Pessoa.class);
+        }
+
+        return ok(newUser.render(p));
     }
 
     @Transactional
@@ -31,11 +43,22 @@ public class User extends Controller {
 
         } else {
 
-            Pessoa p = new Pessoa();
+            Pessoa p;
+            if (session().get("oauth_userData").isEmpty()) {
+                p = new Pessoa();
+            }
+            else {
+                JsonNode json = Json.parse(session().get("oauth_userData"));
+                p = Json.fromJson(json, Pessoa.class);
+            }
 
             p.setNome(form.get("nome"));
-
-            p.setSenha(form.get("senha"));
+            if (p.getOauth_id().isEmpty()) {
+                p.setSenha(form.get("senha"));
+            }
+            else {
+                p.setSenha("-----");
+            }
             p.setUrlImagem(form.get("urlImagem"));
             p.setSexo(form.get("sexo"));
             p.setCidade(form.get("cidade"));

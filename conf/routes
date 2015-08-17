@@ -18,4 +18,5 @@ GET         /assets/*file            controllers.Assets.at(path="/public", file)
 
 
 #controllers for OAuth
-GET     /twitter/auth         controllers.Twitter.auth()
+GET     /twitter/auth            controllers.Twitter.auth()
+GET     /twitter/user_info       controllers.Twitter.userInfo()

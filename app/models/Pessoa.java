@@ -23,11 +23,8 @@ public class Pessoa extends Model {
     @Required
     private String senha;
 
-    @Required
-    private String token;
-
-    @Required
-    private String secret;
+    private String oauth_provider;
+    private String oauth_id;
 
     @Required
     private String urlImagem;
@@ -91,23 +88,23 @@ public class Pessoa extends Model {
         this.estado = estado;
     }
 
-    public String getToken() {
-        return token;
+    public String getOauth_provider() {
+        return oauth_provider;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setOauth_provider(String oauth_provider) {
+        this.oauth_provider = oauth_provider;
     }
 
-    public String getSecret() {
-        return secret;
+    public String getOauth_id() {
+        return oauth_id;
     }
 
-    public void setSecret(String secret) {
-        this.secret = secret;
+    public void setOauth_id(String oauth_id) {
+        this.oauth_id = oauth_id;
     }
 
-/* ACCESS TO DB */
+    /* ACCESS TO DB */
 
     public Long authLogin(String nome, String senha) {
 
@@ -144,5 +141,23 @@ public class Pessoa extends Model {
 
         return null;
     }
+
+    public static Pessoa getByOAuth(String provider, String id) {
+
+        Pessoa p = Ebean.find(Pessoa.class)
+                .where()
+                    .eq("oauth_provider", provider)
+                    .eq("oauth_id", id)
+                .findUnique();
+
+        if (p != null) {
+            if (p.getId() != null) {
+                return p;
+            }
+        }
+
+        return null;
+    }
+
 
 }

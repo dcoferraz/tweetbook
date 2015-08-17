@@ -1,4 +1,4 @@
-@()
+@(novaPessoa : Pessoa)
 
 @main("Novo Usuario") {
 
@@ -9,16 +9,16 @@
             <div class="col s12">
                 <form method="POST" action="@routes.User.criar()">
                     <div class="input-field col s6">
-                        <input id="nome" name="nome" type="text" class="validate" required>
+                        <input id="nome" name="nome" type="text" class="validate" value="@novaPessoa.getNome()" required>
                         <label for="nome">Seu Nome</label>
                     </div>
-                    <div class="input-field col s6">
-                        <input id="senha" name="senha" type="password" class="validate" required>
+                    <div class="input-field col s6 @if(!novaPessoa.getOauth_id().isEmpty){ hide }" >
+                        <input id="senha" name="senha" type="password" @if(novaPessoa.getOauth_id().isEmpty){ class="validate" required }>
                         <label for="senha">Senha</label>
                     </div>
 
                     <div class="input-field col s6 offset-s6">
-                        <input id="urlImagem" name="urlImagem" type="url" class="validate" required>
+                        <input id="urlImagem" name="urlImagem" type="url" class="validate" value="@novaPessoa.getUrlImagem()" required>
                         <label for="urlImagem">URL da imagem de perfil</label>
                     </div>
 
@@ -33,17 +33,17 @@
                     </div>
 
                     <div class="input-field col s6">
-                        <input id="cidade" name="cidade" type="text" class="validate">
+                        <input id="cidade" name="cidade" type="text" value="@novaPessoa.getCidade()" class="validate">
                         <label for="cidade">Cidade</label>
                     </div>
 
                     <div class="input-field col s6">
-                        <input id="estado" name="estado" type="text" class="validate">
+                        <input id="estado" name="estado" type="text" value="@novaPessoa.getEstado()" class="validate">
                         <label for="estado">Estado</label>
                     </div>
 
                     <div class="col s12">
-                        <button class="btn waves-effect right">Criar</button>
+                        <button class="btn waves-effect right" >Criar</button>
                     </div>
                 </form>
             </div>

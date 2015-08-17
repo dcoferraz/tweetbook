@@ -17,21 +17,35 @@
                     <h3>Fa&ccedil;a seu login</h3>
                 </div>
                 <form method="POST" action="@routes.Index.login()">
-                    <div class="input-field col s6 ">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="login" name="login" type="text" class="validate center" required>
-                        <label for="login">Login</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="password" name="password" type="password" class="validate center" required>
-                        <label for="password">Senha</label>
-                    </div>
-                    <div class="input-field col s6 right">
-                        <button class="btn waves-effect right">Login</button>
-                    </div>
-                    <div class="input-field col s6">
-                        <a type="button" class="btn waves-effect" href="/newUser">Criar Usu&aacute;rio</a>
+                    <div class="col s6 offset-s3">
+                        <div class="input-field row ">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="login" name="login" type="text" class="validate center" required>
+                            <label for="login">Login</label>
+                        </div>
+                        <div class="input-field row">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password" name="password" type="password" class="validate center" required>
+                            <label for="password">Senha</label>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6 right">
+                                <button class="btn waves-effect right">Login</button>
+                            </div>
+                            <div class="input-field col s6">
+                                <a type="button" class="btn waves-effect" href="/newUser">Criar Usu&aacute;rio</a>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="row promo">
+                            <div class="col s12">
+                                <div class="center">
+                                    <a type="button" class="btn waves-effect" style="background-color: #3cf" href="/twitter/auth">Acesse com Twitter</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
