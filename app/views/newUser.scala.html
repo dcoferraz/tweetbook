@@ -12,10 +12,18 @@
                         <input id="nome" name="nome" type="text" class="validate" value="@novaPessoa.getNome()" required>
                         <label for="nome">Seu Nome</label>
                     </div>
-                    <div class="input-field col s6 @if(!novaPessoa.getOauth_id().isEmpty){ hide }" >
-                        <input id="senha" name="senha" type="password" @if(novaPessoa.getOauth_id().isEmpty){ class="validate" required }>
-                        <label for="senha">Senha</label>
+
+                    <div  class="input-field col s6 offset-s6">
+                        <input id="email" name="email" type="email" class="validate" value="@novaPessoa.getEmail()" required>
+                        <label for="email">Email</label>
                     </div>
+
+                    @if(novaPessoa.getOauth_id() == null || novaPessoa.getOauth_id().isEmpty){
+                        <div class="input-field col s6" >
+                            <input id="senha" name="senha" type="password" class="validate" required>
+                            <label for="senha">Senha</label>
+                        </div>
+                    }
 
                     <div class="input-field col s6 offset-s6">
                         <input id="urlImagem" name="urlImagem" type="url" class="validate" value="@novaPessoa.getUrlImagem()" required>

@@ -29,43 +29,44 @@ public class Index extends Controller {
     @Transactional
     public Result login() {
 
-        System.out.printf("login executado!");
+        System.out.println("current_id: "+session().get("current_id"));
 
         DynamicForm form = Form.form().bindFromRequest();
 
         if (form.data().size() == 0) {
 
-            System.out.printf("if login executado!");
-
             return ok(error.render("Expecting some data"));
 
         } else {
 
-            System.out.printf("else login executado!");
-
             Pessoa p = new Pessoa();
-
 
             //TODO: get id from authLogin and save in session
 
-            Long pessoaId;
-            if (session().get("oauth_provider").isEmpty()) {
+            Long pessoaId = null;
+            String oauth_provider = session().get("oauth_provider");
+            if (oauth_provider != null && !oauth_provider.isEmpty()) {
+                pessoaId = Pessoa.getByOAuth(oauth_provider, session().get("oauth_id")).getId();
+            } else {
                 pessoaId = p.authLogin(form.get("login"), form.get("password"));
-            }
-            else {
-                pessoaId = Pessoa.getByOAuth(session().get("oauth_provider"), session().get("oauth_id")).getId();
+
+                System.out.println("depois do authLogin");
             }
 
             if (pessoaId != null) {
+
+                System.out.println("antes de colocar valores no session");
 
                 session().put("conected", p.getNome());
                 session().put("showMenu", "true");
                 session().put("conectedId", pessoaId.toString());
 
+                System.out.println("antes de redirecionar para timeline...");
+
                 return redirect("/timeline");
 
             } else {
-                return ok(error.render("Login/senha incorreto! Tente de novo! :)"));
+                return ok(error.render("Login/Senha incorretos! Tente novamente! :)"));
             }
 
         }

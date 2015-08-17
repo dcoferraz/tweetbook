@@ -7,6 +7,7 @@ import play.data.validation.Constraints.Required;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.Constraint;
 
 @Entity
 public class Pessoa extends Model {
@@ -18,6 +19,10 @@ public class Pessoa extends Model {
     @Basic
     @Required
     private String nome;
+
+    @Basic
+    @Required
+    private String email;
 
     @Basic
     @Required
@@ -42,6 +47,14 @@ public class Pessoa extends Model {
 
     public String getNome() {
         return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setNome(String nome) {
@@ -106,20 +119,21 @@ public class Pessoa extends Model {
 
     /* ACCESS TO DB */
 
-    public Long authLogin(String nome, String senha) {
+    public Long authLogin(String email, String senha) {
 
-        System.out.println("/*****Received*****/\n Nome: " + nome + "\n Senha: " + senha);
+        System.out.println("/*****Received*****/\n Login: " + email + "\n Senha: " + senha);
 
         // fluid API style with find()
         Pessoa p =
                 Ebean.find(Pessoa.class)
                         .select("id")
-                        .where().eq("nome", nome)
+                        .where().eq("email", email)
                         .eq("senha", senha)
                         .findUnique();
 
         if (p != null) {
             if (p.getId() != null) {
+                //System.out.println("achou! Nome: " + p.getNome());
                 return p.getId();
             }
         }

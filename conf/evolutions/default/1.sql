@@ -35,6 +35,7 @@ create table grupo (
 create table pessoa (
   id                        bigint auto_increment not null,
   nome                      varchar(255),
+  email                     varchar(255),
   senha                     varchar(255),
   oauth_provider            varchar(255),
   oauth_id                  varchar(255),

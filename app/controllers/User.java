@@ -21,11 +21,12 @@ public class User extends Controller {
     public Result novo() {
 
         Pessoa p;
-        if (session().get("oauth_userData").isEmpty()) {
+        String oauth_userData = session().get("oauth_userData");
+        if (oauth_userData == null || oauth_userData.isEmpty()) {
             p = new Pessoa();
         }
         else {
-            JsonNode json = Json.parse(session().get("oauth_userData"));
+            JsonNode json = Json.parse(oauth_userData);
             p = Json.fromJson(json, Pessoa.class);
         }
 
@@ -44,20 +45,23 @@ public class User extends Controller {
         } else {
 
             Pessoa p;
-            if (session().get("oauth_userData").isEmpty()) {
-                p = new Pessoa();
-            }
-            else {
-                JsonNode json = Json.parse(session().get("oauth_userData"));
+            String oauth_userData = session().get("oauth_userData");
+            if (oauth_userData != null && !oauth_userData.isEmpty()) {
+                JsonNode json = Json.parse(oauth_userData);
                 p = Json.fromJson(json, Pessoa.class);
+            } else {
+                p = new Pessoa();
             }
 
             p.setNome(form.get("nome"));
-            if (p.getOauth_id().isEmpty()) {
-                p.setSenha(form.get("senha"));
-            }
-            else {
+
+            // TODO: tratar se o email ja estiver cadastrado (deve ser unico)
+            p.setEmail(form.get("email"));
+
+            if (p.getOauth_id() != null && !p.getOauth_id().isEmpty()) {
                 p.setSenha("-----");
+            } else {
+                p.setSenha(form.get("senha"));
             }
             p.setUrlImagem(form.get("urlImagem"));
             p.setSexo(form.get("sexo"));
@@ -65,6 +69,12 @@ public class User extends Controller {
             p.setEstado(form.get("estado"));
 
             p.save();
+
+            Long pessoaId = p.authLogin(p.getEmail(), p.getSenha());
+
+            session().put("conected", p.getNome());
+            session().put("showMenu", "true");
+            session().put("conectedId", pessoaId.toString());
 
             return redirect("/timeline");
 
@@ -100,6 +110,7 @@ public class User extends Controller {
 
             p.setId(Long.parseLong(form.get("id")));
             p.setNome(form.get("nome"));
+            p.setEmail(form.get("email"));
             p.setSenha(form.get("senha"));
             p.setUrlImagem(form.get("urlImagem"));
             p.setSexo(form.get("sexo"));
