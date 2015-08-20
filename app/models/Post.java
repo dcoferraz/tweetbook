@@ -103,6 +103,11 @@ public class Post extends Model {
         this.comentarios = comentarios;
     }
 
+    /**
+     * Gets posts that will be displayed on timeline
+     *
+     * @return List<Post>
+     */
     public List<Post> timelinePosts() {
 
         List<Post> lp = Ebean.find(Post.class)
@@ -117,9 +122,17 @@ public class Post extends Model {
 
     }
 
+
+    /**
+     * checks if the user liked a post
+     *
+     * @param idPessoa
+     * @param idPost
+     * @return boolean
+     */
     public Boolean didHeLike(String idPessoa, Long idPost) {
 
-        System.out.println("//parameters: ("+idPessoa+","+idPost+")");
+        System.out.println("//parameters: (" + idPessoa + "," + idPost + ")");
         String sql = "select l.idPost, l.idPessoa from posts_curtidas l join post p on p.id = l.idPost where l.idPost = :id and l.idPessoa = :idPessoa";
         SqlRow bug = Ebean.createSqlQuery(sql)
                 .setParameter("id", idPost)
@@ -127,18 +140,25 @@ public class Post extends Model {
                 .findUnique();
 
         boolean alreadyLiked = false;
-        if(bug != null && !bug.equals("")){
+        if (bug != null && !bug.equals("")) {
             String post = bug.getString("idPost") != null ? bug.getString("idPost") : "";
-            String pessoa   = bug.getString("idPessoa");
+            String pessoa = bug.getString("idPessoa");
 
 
-            if(pessoa != null && pessoa != ""){//TODO: make appropriate check
+            if (pessoa != null && pessoa != "") {//TODO: make appropriate check
                 alreadyLiked = true;
             }
         }
         return alreadyLiked;
     }
 
+
+    /**
+     * gets the post info for ID to the timeline
+     *
+     * @param criadorId
+     * @return List<Post>
+     */
     public List<Post> timelinePostsById(Long criadorId) {
 
         List<Post> lp = Ebean.find(Post.class)

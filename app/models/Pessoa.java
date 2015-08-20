@@ -217,6 +217,13 @@ public class Pessoa extends Model {
 
     /* ACCESS TO DB */
 
+    /**
+     * authLogin authenticate the user with the DB
+     *
+     * @param email
+     * @param senha
+     * @return Long
+     */
     public Long authLogin(String email, String senha) {
 
         System.out.println("/*****Received*****/\n Login: " + email + "\n Senha: " + senha);
@@ -238,7 +245,12 @@ public class Pessoa extends Model {
         return null;
     }
 
-
+    /**
+     * get a Person object through its id
+     *
+     * @param id
+     * @return Pessoa
+     */
     public static Pessoa getById(Long id) {
 
         Pessoa p = Ebean.find(Pessoa.class)
@@ -255,6 +267,13 @@ public class Pessoa extends Model {
         return null;
     }
 
+    /**
+     * Authentication throug OAuth
+     *
+     * @param provider
+     * @param id
+     * @return Pessoa
+     */
     public static Pessoa getByOAuth(String provider, String id) {
 
         Pessoa p = Ebean.find(Pessoa.class)
@@ -272,6 +291,13 @@ public class Pessoa extends Model {
         return null;
     }
 
+    /**
+     * Checks if a user liked a post
+     *
+     * @param idPessoa
+     * @param idPost
+     * @return boolean
+     */
     public Boolean didHeLike(Long idPessoa, Long idPost) {
         String sql = "select l.idPost, l.idPessoa " +
                 "from posts_curtidas l join post p on p.id = l.idPost" +
@@ -296,6 +322,13 @@ public class Pessoa extends Model {
     }
 
 
+    /**
+     * removes a like for a post
+     *
+     * @param idPostAjax
+     * @param idPessoa
+     * @return boolean
+     */
     public static boolean removeLike(Long idPostAjax, Long idPessoa) {
         String sql = "delete from posts_curtidas where idPost = :idPost and idPessoa = :idPessoa";
 

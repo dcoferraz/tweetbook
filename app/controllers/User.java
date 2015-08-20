@@ -18,14 +18,18 @@ public class User extends Controller {
 
     Pessoa pessoaDAO = new Pessoa();
 
+    /**
+     * novo persists new user
+     *
+     * @return template render
+     */
     public Result novo() {
 
         Pessoa p;
         String oauth_userData = session().get("oauth_userData");
         if (oauth_userData == null || oauth_userData.isEmpty()) {
             p = new Pessoa();
-        }
-        else {
+        } else {
             JsonNode json = Json.parse(oauth_userData);
             p = Json.fromJson(json, Pessoa.class);
         }
@@ -33,6 +37,11 @@ public class User extends Controller {
         return ok(newUser.render(p));
     }
 
+    /**
+     * criar persists new user from Twitter
+     *
+     * @return redirect
+     */
     @Transactional
     public Result criar() {
 
@@ -85,7 +94,12 @@ public class User extends Controller {
         }
     }
 
-
+    /**
+     * profile selects data from DB
+     *
+     * @param id
+     * @return template render
+     */
     public Result profile(String id) {
 
         Long idPessoa = Long.parseLong(id);
@@ -100,6 +114,11 @@ public class User extends Controller {
         return ok(profile.render(p));
     }
 
+    /**
+     * editar edits a created user
+     *
+     * @return redirect
+     */
     @Transactional
     public Result editar() {
         DynamicForm form = Form.form().bindFromRequest();

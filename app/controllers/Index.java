@@ -13,6 +13,11 @@ public class Index extends Controller {
 
     private Pessoa pessoaDao = new Pessoa();
 
+    /**
+     * index
+     * @return view or redirect
+     */
+
     public Result index() {
 
         String isConected = null;
@@ -38,6 +43,10 @@ public class Index extends Controller {
 
     }
 
+    /**
+     * login function to log the user in the platform
+     * @return view or redirect
+     */
     @Transactional
     public Result login() {
 
@@ -84,7 +93,10 @@ public class Index extends Controller {
         }
     }
 
-
+    /**
+     * logout function to kill the user session
+     * @return redirect
+     */
     public Result logout() {
 
         /* CLEAR SESSION */

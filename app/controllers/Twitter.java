@@ -41,6 +41,10 @@ public class Twitter extends Controller {
         this.ws = ws;
     }
 
+    /**
+     * userInfo receives the data from the call to twitter authentication
+     * @return redirect
+     */
     public Promise<Result> userInfo() {
         Option<RequestToken> sessionTokenPair = getSessionTokenPair();
         if (sessionTokenPair.isDefined()) {
@@ -94,6 +98,10 @@ public class Twitter extends Controller {
         return Promise.pure(redirect(routes.Twitter.auth()));
     }
 
+    /**
+     * auth validates the OAuth verifier.
+     * @return redirect
+     */
     public Result auth() {
             String verifier = request().getQueryString("oauth_verifier");
             if (Strings.isNullOrEmpty(verifier)) {
@@ -115,11 +123,20 @@ public class Twitter extends Controller {
             }
     }
 
+    /**
+     * saveSessionTokenPair persists a friendship relation to the DB
+     * @param requestToken
+     * @return redirect
+     */
     private void saveSessionTokenPair(RequestToken requestToken) {
         session("token", requestToken.token);
         session("secret", requestToken.secret);
     }
 
+    /**
+     * getSessionTokenPair gets the tokens from the session()
+     * @return redirect
+     */
     private Option<RequestToken> getSessionTokenPair() {
         if (session().containsKey("token")) {
             return Option.Some(new RequestToken(session("token"), session("secret")));

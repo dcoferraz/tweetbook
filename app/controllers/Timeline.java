@@ -16,6 +16,10 @@ import java.util.List;
 
 public class Timeline extends Controller {
 
+    /**
+     * index function that render the timeline
+     * @return redirect
+     */
     public Result index() {
         Post p = new Post();
         List<Post> lp = p.timelinePosts();
@@ -23,6 +27,10 @@ public class Timeline extends Controller {
         return ok(timeline.render(lp));
     }
 
+    /**
+     * newPost persists a Post
+     * @return redirect
+     */
     @Transactional
     public Result newPost() {
 
@@ -57,6 +65,12 @@ public class Timeline extends Controller {
 
     }
 
+    /**
+     * like persists a like to a post
+     * @param idPost
+     * @param idUser
+     * @return redirect
+     */
     @Transactional
     public Result like(String idPost, String idUser) {
         String msg;
@@ -91,6 +105,13 @@ public class Timeline extends Controller {
         return ok(msg);
     }
 
+    /**
+     * addComment persists a comment to a post
+     * @param idPessoa
+     * @param comentario
+     * @param idPost
+     * @return redirect
+     */
     public Result addComment(String idPessoa, String comentario, String idPost) {
         String msg;
 

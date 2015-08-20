@@ -13,6 +13,10 @@ import static play.libs.Json.*;
 
 public class Amigo extends Controller {
 
+    /**
+     * index redirects to amigo template
+     * @return redirect
+     */
     public Result index() {
 
         Long idPessoa = Long.parseLong(session().get("conectedId"));
@@ -24,6 +28,12 @@ public class Amigo extends Controller {
         return ok(amigo.render(pessoas));
     }
 
+    /**
+     * addAmigo persists a friendship relation to the DB
+     * @param idUser
+     * @param idAmigo
+     * @return redirect
+     */
     public Result addAmigo(String idUser, String idAmigo){
 
         String msg = "ok";

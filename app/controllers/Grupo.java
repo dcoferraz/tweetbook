@@ -10,6 +10,12 @@ public class Grupo extends Controller {
         return ok(grupo.render());
     }
 
+    /**
+     * addParticipante persists a participante to an event
+     * @param idGrupo
+     * @param idParticipante
+     * @return redirect
+     */
     public Result addParticipante(String idGrupo, String idParticipante) {
 
         //TODO: adicionar participante se ele nao faz parte do grupo

@@ -8,6 +8,10 @@ import views.html.*;
 
 public class Evento extends Controller {
 
+    /**
+     * index renders evento template
+     * @return redirect
+     */
     public Result index(){return ok(evento.render());}
 
 }

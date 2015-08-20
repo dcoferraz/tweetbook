@@ -16,6 +16,10 @@ import java.util.List;
 
 public class Atividades extends Controller {
 
+    /**
+     * index renders atividades template
+     * @return redirect
+     */
     public Result index() {
 
         Post p = new Post();
