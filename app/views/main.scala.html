@@ -41,11 +41,13 @@
                 </div>
                 <ul class="side-nav" id="mobile-demo">
 
-                    <li><a href="@routes.User.profile(session.get("conectedId"))">Meu perfil</a></li>
-                    <li><a href="/timeline">Timeline</a></li>
-                    <li><a href="/atividades">Minhas Atividades</a></li>
-                    <li><a href="/grupo">Grupo</a></li>
-                    <li><a href="/logout" class="materialize-red-text">Sair</a></li>
+                    <li><h5>Seu menu, @session.get("conected")!</h5></li>
+                    <li><div>Timeline<a href="/timeline" ></a></div></li>
+                    <li><div>Amigos<a href="/amigo" ></a></div></li>
+                    <li><div>Evento<a href="/evento" ></a></div></li>
+                    <li><div>Grupo<a href="/grupo" ></a></div></li>
+                    <li><div>Minhas Atividades<a href="/atividades"></a></div></li>
+                    <li><div>Meu perfil<a href="@routes.User.profile(session.get("conectedId"))"></a></div></li>
                 </ul>
             </nav>
 

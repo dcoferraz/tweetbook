@@ -64,7 +64,7 @@ function like(idPost, idUser) {
 function comment(id) {
 
 
-    $('idPost').val(id);
+    $('#idPost').val(id);
     $('#commentModal').openModal();
 }
 
