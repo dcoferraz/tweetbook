@@ -77,6 +77,7 @@ public class Index extends Controller {
         session().clear();
 
         session().put("conected", "");
+        session().put("conectedId", "");
 
         System.out.println("/* logout() method called */");
 

@@ -29,7 +29,11 @@ $(document).ready(function () {
 
 });
 
-
+/**
+ * Liking a post
+ * @param postId
+ * @description ajax call to persist like
+ */
 function like(id) {
     $.ajax({
         url: '/like',
@@ -49,11 +53,19 @@ function like(id) {
     });
 }
 
+/**
+ * Open Modal
+ * @param postId
+ * @description Opens Modal to comment com Post
+ */
 function comment(id) {
     $('#commentModal').openModal();
 }
 
-
+/**
+ * Add Comment
+ * @description Gets the form from the modal screen and ajax's it to persist
+ */
 function addComment() {
     var pessoaNome  = $('#pessoaNome').val();
     var comentario  = $('#comentario').val();
@@ -80,3 +92,32 @@ function addComment() {
     });
 }
 
+/**
+ * Open Modal
+ * @param postId
+ * @description Opens Modal to comment com Post
+ */
+function addAmigo(idUser, idAmigo){
+    $.ajax({
+        url: '/addAmigo',
+        data: {"idUser": idUser, "idAmigo" : idAmigo},
+        method: "GET",
+        success: function (data) {
+            var $addFriend = $('#user-'+idAmigo);
+
+            if(data == "remove"){
+                $addFriend.text('person_add');
+                $addFriend.removeClass("red-text");
+                $addFriend.addClass("green-text");
+                return;
+            }
+
+            $addFriend.removeClass("green-text");
+            $addFriend.addClass("red-text");
+            $addFriend.text('cancel');
+        },
+        error: function () {
+            alert("Ocorreu um erro ao adicionar um amigo... Tente novamente mais tarde!");
+        }
+    });
+}
