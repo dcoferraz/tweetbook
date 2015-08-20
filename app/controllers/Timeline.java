@@ -16,23 +16,11 @@ import java.util.List;
 
 public class Timeline extends Controller {
 
-    int likeCounterTest = 0;
-
     public Result index() {
-
-        System.out.println("INDEX TIMELINE");
-
         Post p = new Post();
-
         List<Post> lp = p.timelinePosts();
 
-        /*for(Post post : lp){
-            System.out.printf("Post id:" + post.getId().toString());
-        }*/
-
-        //timeline.render(lp)
         return ok(timeline.render(lp));
-
     }
 
     @Transactional
@@ -70,28 +58,26 @@ public class Timeline extends Controller {
     }
 
     public Result like(String id) {
-        String msg = "";
+        String msg;
 
-        if (likeCounterTest == 0) {
-            likeCounterTest++;
-            msg = "blue-text";
-            //TODO: persist likes
-        } else if (likeCounterTest == 1) {
-            likeCounterTest--;
-            msg = "remove";
-            //TODO: persist dislikes
-        }
+        //Long idPessoa = Long.parseLong(session().get("currentId"));
+        //Pessoa p = Pessoa.getById(idPessoa);
+
+        msg = "blue-text";
+        //TODO: persist likes
+
+        //TODO: persist dislikes, msg = "remove";
 
         return ok(msg);
     }
 
-    public Result addComment(String idPessoa,String comentario,String idPost) {
+    public Result addComment(String idPessoa, String comentario, String idPost) {
         String msg;
 
-        if(idPessoa != null && comentario != null && idPost != null){
+        if (idPessoa != null && comentario != null && idPost != null) {
             msg = "ok";
             //TODO: persist comments
-        }else{
+        } else {
             msg = "erro";
         }
         return ok(msg);

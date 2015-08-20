@@ -15,12 +15,16 @@ POST        /newUser                  controllers.User.criar()
 POST        /editar                   controllers.User.editar()
 GET         /profile/:id              controllers.User.profile(id:String)
 
-#Timeline
+# Timeline
 # ~~~~
 GET         /timeline                 controllers.Timeline.index()
 POST        /timeline/newpost         controllers.Timeline.newPost()
 GET         /like                     controllers.Timeline.like(id:String)
 GET         /addComment               controllers.Timeline.addComment(idPessoa:String,comentario:String,idPost:String)
+
+# Atividades
+# ~~~~
+GET         /atividades               controllers.Atividades.index()
 
 # Amigo
 # ~~~~

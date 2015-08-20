@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Post extends Model{
+public class Post extends Model {
 
     @Id
     private Long id;
@@ -105,11 +105,26 @@ public class Post extends Model{
     public List<Post> timelinePosts() {
 
         List<Post> lp = Ebean.find(Post.class)
-                             .where().eq("ativo", true)
-                             .findList();
+                .where().eq("ativo", true)
+                .findList();
 
-        for(Post p : lp){
+        for (Post p : lp) {
             System.out.println("Post id: " + p.getId().toString());
+        }
+
+        return lp;
+
+    }
+
+    public List<Post> timelinePostsById(Long criadorId) {
+
+        List<Post> lp = Ebean.find(Post.class)
+                .where().eq("ativo", true)
+                .eq("criador_id", criadorId)
+                .findList();
+
+        for (Post p : lp) {
+            System.out.println("User: " + criadorId + " | Post id: " + p.getId().toString());
         }
 
         return lp;
