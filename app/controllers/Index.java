@@ -58,8 +58,11 @@ public class Index extends Controller {
                 p = pessoaDao.getById(pessoaId);
 
                 session().put("conected", p.getNome());
+                System.out.println("3/// Session nome: " + session().get("conected"));
+
                 session().put("showMenu", "true");
                 session().put("conectedId", pessoaId.toString());
+                System.out.println("4/// Session ID: " + session().get("conectedId"));
 
                 return redirect("/timeline");
 

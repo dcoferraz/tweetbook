@@ -36,8 +36,6 @@ public class User extends Controller {
     @Transactional
     public Result criar() {
 
-        System.out.println("CONTROLLER USER, METHOD CRIAR");
-
         DynamicForm form = Form.form().bindFromRequest();
 
         if (form.data().size() == 0) {

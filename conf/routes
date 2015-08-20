@@ -19,7 +19,7 @@ GET         /profile/:id              controllers.User.profile(id:String)
 # ~~~~
 GET         /timeline                 controllers.Timeline.index()
 POST        /timeline/newpost         controllers.Timeline.newPost()
-GET         /like                     controllers.Timeline.like(id:String)
+GET         /like                     controllers.Timeline.like(idPost:String,idUser:String)
 GET         /addComment               controllers.Timeline.addComment(idPessoa:String,comentario:String,idPost:String)
 
 # Atividades

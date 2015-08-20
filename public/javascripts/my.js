@@ -34,21 +34,24 @@ $(document).ready(function () {
  * @param postId
  * @description ajax call to persist like
  */
-function like(id) {
+function like(idPost, idUser) {
+
     $.ajax({
         url: '/like',
-        data: {"id": id},
+        data: {"idPost": idPost, "idUser": idUser},
         method: "GET",
         success: function (data) {
-            var $like = $('#like-'+id);
-            if(data == "remove"){
+            var $like = $('#like-'+idPost);
+            if (data == "remove") {
                 $like.removeClass("blue-text");
                 return;
             }
             $like.addClass(data);
+            Materialize.toast('Liked :)', 2000);
         },
         error: function () {
-            alert("Ocorreu um erro ao curtir... Tente novamente mais tarde!");
+            Materialize.toast('<span>Ocorreu um erro ao curtir... Tente novamente mais tarde!</span><a class="btn-flat red-text" href="#!">OK<a>', 4000);
+            //alert("Ocorreu um erro ao curtir... Tente novamente mais tarde!");
         }
     });
 }
@@ -59,6 +62,9 @@ function like(id) {
  * @description Opens Modal to comment com Post
  */
 function comment(id) {
+
+
+    $('idPost').val(id);
     $('#commentModal').openModal();
 }
 
@@ -67,27 +73,31 @@ function comment(id) {
  * @description Gets the form from the modal screen and ajax's it to persist
  */
 function addComment() {
-    var pessoaNome  = $('#pessoaNome').val();
-    var comentario  = $('#comentario').val();
-    var idPost      = $('#idPost').val();;
+    var pessoaNome = $('#pessoaNome').val();
+    var comentario = $('#comentario').val();
+    var idPost = $('#idPost').val();
+    ;
 
     $.ajax({
         url: '/addComment',
-        data: {"idPessoa": pessoaNome, "comentario" : comentario, "idPost" : idPost},
+        data: {"idPessoa": pessoaNome, "comentario": comentario, "idPost": idPost},
         method: "GET",
         success: function (data) {
-            if(data == "erro"){
+            if (data == "erro") {
                 alert("Erro... :(");
                 return;
             }
 
-            var commmentString = '<li class="collection-item avatar"><i class="material-icons circle red">play_arrow</i><span class="title">'+ pessoaNome +'</span><p>'+comentario+'</p></li>';
+            var commmentString = '<li class="collection-item avatar"><i class="material-icons circle red">play_arrow</i><span class="title">' + pessoaNome + '</span><p>' + comentario + '</p></li>';
             $("#modal-content ul").append(commmentString);
             $('#comentario').val("");
 
+            Materialize.toast('Coment&aacute;rio adicionado!', 4000);
+
         },
         error: function () {
-            alert("Ocorreu um erro ao comentar... Tente novamente mais tarde!");
+            Materialize.toast("Ocorreu um erro ao comentar... Tente novamente mais tarde!", 4000);
+            //alert("Ocorreu um erro ao comentar... Tente novamente mais tarde!");
         }
     });
 }
@@ -97,24 +107,27 @@ function addComment() {
  * @param idUser, idAmigo
  * @description Salva novo amigo no banco
  */
-function addAmigo(idUser, idAmigo){
+function addAmigo(idUser, idAmigo) {
     $.ajax({
         url: '/addAmigo',
-        data: {"idUser": idUser, "idAmigo" : idAmigo},
+        data: {"idUser": idUser, "idAmigo": idAmigo},
         method: "GET",
         success: function (data) {
-            var $addFriend = $('#user-'+idAmigo);
+            var $addFriend = $('#user-' + idAmigo);
 
-            if(data == "remove"){
+            if (data == "remove") {
                 $addFriend.text('person_add');
                 $addFriend.removeClass("red-text");
                 $addFriend.addClass("green-text");
+
+                Materialize.toast('<span>Removido com sucesso</span><a class="btn-flat yellow-text" href="#!">OK<a>', 4000);
                 return;
             }
 
             $addFriend.removeClass("green-text");
             $addFriend.addClass("red-text");
             $addFriend.text('cancel');
+            Materialize.toast('<span>Adicionado com sucesso</span><a class="btn-flat green-text" href="#!">OK<a>', 4000);
         },
         error: function () {
             alert("Ocorreu um erro ao adicionar um amigo... Tente novamente mais tarde!");
@@ -136,22 +149,25 @@ function invite(idGrupo) {
  * @param idGrupo, idParticipante
  * @description Salva novo participante na relação do grupo
  */
-function addParticipante(idGrupo, idParticipante){
+function addParticipante(idGrupo, idParticipante) {
     $.ajax({
         url: '/addParticipante',
-        data: {"idGrupo": idGrupo, "idParticipante" : idParticipante},
+        data: {"idGrupo": idGrupo, "idParticipante": idParticipante},
         method: "GET",
         success: function (data) {
-            var $addParticipante = $('#user-'+idParticipante);
+            var $addParticipante = $('#user-' + idParticipante);
 
-            if(data == "remove"){
+            if (data == "remove") {
                 $addParticipante.removeClass("green-text");
                 $addParticipante.addClass("grey-text");
+
+                Materialize.toast('<span>Removido com sucesso</span><a class="btn-flat yellow-text" href="#!">OK<a>', 4000);
                 return;
             }
 
             $addParticipante.removeClass("grey-text");
             $addParticipante.addClass("green-text");
+            Materialize.toast('<span>Adicionado com sucesso</span><a class="btn-flat yellow-text" href="#!">OK<a>', 4000);
         },
         error: function () {
             alert("Ocorreu um erro ao adicionar um amigo... Tente novamente mais tarde!");

@@ -36,3 +36,6 @@ main {
 nav .brand-logo {
     padding: 0 0 0 20px;
 }
+
+
+#toast-container{display:block;position:fixed;z-index:9999999}

@@ -5,6 +5,7 @@
         <div class="row">
 
                 <!--LEFT SIDENAV-->
+                <!--TODO: MAKE SIDE NAV A COMPONENT-->
             <div class="col l4 hide-on-med-and-down">
 
                 <ul class="collection with-header">
@@ -19,10 +20,10 @@
                         <div>Amigos<a href="/amigo" class="secondary-content"><i class="material-icons">send</i></a></div>
                     </li>
                     <li class="collection-item">
-                        <div>Evento<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        <div>Evento<a href="/evento" class="secondary-content"><i class="material-icons">send</i></a></div>
                     </li>
                     <li class="collection-item">
-                        <div>Grupo<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        <div>Grupo<a href="/grupo" class="secondary-content"><i class="material-icons">send</i></a></div>
                     </li>
                     <li class="collection-item">
                         <div>
@@ -161,6 +162,7 @@
             </div>
 
             @for(post <- posts) {
+
                 <div class="col s12 l8 offset-l4">
                     <div class="card small">
                         <div class="card-image">
@@ -170,7 +172,11 @@
                             <p>@post.getConteudo</p>
                         </div>
                         <div class="card-action">
-                            <a href="javascript:like(@post.getId)"><i class="material-icons" id="like-@post.getId">thumb_up</i></a>
+                            <a href="javascript:like(@post.getId,@session.get("conectedId"))">
+                                <i
+                                class="material-icons @if(post.didHeLike(session.get("conectedId"), post.getId)){blue-text}"
+                                id="like-@post.getId">thumb_up</i>
+                            </a>
                             <a href="javascript:comment(@post.getId)"><i class="material-icons">comment</i></a>
                             <i class="right">@post.getPostadoEm().format("dd/MM/yy HH:mm")</i>
                         </div>

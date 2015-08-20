@@ -116,6 +116,30 @@ public class Post extends Model {
 
     }
 
+    public Boolean didHeLike(String idPessoa, Long idPost) {
+
+        Long idPe = Long.parseLong(idPessoa);
+
+        Pessoa pessoa = Pessoa.getById(idPe);
+
+        System.out.println("/*******FOR*******/");
+
+        boolean alreadyLiked = false;
+
+        for(Pessoa p : pessoa.getCurtidas()){
+
+            if(p.getId().equals(idPost)){
+                alreadyLiked = true;
+                break;
+            }
+
+        }
+
+
+        System.out.println("3// curtiu: " + alreadyLiked);
+        return alreadyLiked;
+    }
+
     public List<Post> timelinePostsById(Long criadorId) {
 
         List<Post> lp = Ebean.find(Post.class)

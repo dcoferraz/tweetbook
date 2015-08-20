@@ -229,7 +229,7 @@ public class Pessoa extends Model {
 
         if (p != null) {
             if (p.getId() != null) {
-                System.out.println("achou! Nome: " + p.getNome());
+                System.out.println("achou! Nome: " + p.getNome() + "| id : " + p.getId());
                 return p.getId();
             }
         }
@@ -245,6 +245,7 @@ public class Pessoa extends Model {
 
         if (p != null) {
             if (p.getId() != null) {
+                System.out.println("2// Achou: " + p.getId());
                 return p;
             }
         }

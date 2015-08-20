@@ -57,16 +57,53 @@ public class Timeline extends Controller {
 
     }
 
-    public Result like(String id) {
+    @Transactional
+    public Result like(String idPost, String idUser) {
         String msg;
 
-        //Long idPessoa = Long.parseLong(session().get("currentId"));
-        //Pessoa p = Pessoa.getById(idPessoa);
+        System.out.println("//5 idUser like(): "+idUser);
 
-        msg = "blue-text";
-        //TODO: persist likes
+        Long idPessoa = Long.parseLong(idUser);
+        Long idPostAjax = Long.parseLong(idPost);
 
-        //TODO: persist dislikes, msg = "remove";
+        System.out.println("6// idPessoa: "+idPessoa);
+
+        Pessoa p1 = Pessoa.getById(idPessoa);
+        Pessoa p2 = new Pessoa();
+
+        boolean allreadyLike = false;
+        for(Pessoa p : p1.getCurtidas()){
+            if (p.getId().equals(idPostAjax)) {
+                allreadyLike = true;
+                break;
+            }
+        }
+
+        System.out.println("7// allreadyLiked: "+allreadyLike);
+        System.out.println("8// idPost: "+idPostAjax);
+
+
+
+        p2.setId(idPostAjax);
+
+        if(allreadyLike){
+            msg = "remove";
+
+
+            System.out.println("9// remove");
+            //TODO: remove likes
+            p1.getCurtidas().remove(p2);
+            p1.save();
+            p2 = null;
+
+        } else {
+            msg = "blue-text";
+            System.out.println("9// add");
+            //TODO: persist likes
+            p1.getCurtidas().add(p2);
+            p1.save();
+            p2 = null;
+        }
 
         return ok(msg);
     }
