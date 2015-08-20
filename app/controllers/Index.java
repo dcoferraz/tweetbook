@@ -11,25 +11,23 @@ import views.html.*;
 
 public class Index extends Controller {
 
+    private Pessoa pessoaDao = new Pessoa();
+
     public Result index() {
 
         String isConected = session().get("conected");
 
-        if (isConected != null) {
+        if (isConected != null && (!isConected.equals(""))) {
             session().put("showMenu", "true");
             return redirect("/timeline");
         } else {
             session().put("showMenu", "false");
             return ok(tweetbook.render());
         }
-
-
     }
 
     @Transactional
     public Result login() {
-
-        System.out.println("current_id: "+session().get("current_id"));
 
         DynamicForm form = Form.form().bindFromRequest();
 
@@ -40,28 +38,30 @@ public class Index extends Controller {
         } else {
 
             Pessoa p = new Pessoa();
-
-            //TODO: get id from authLogin and save in session
-
             Long pessoaId = null;
             String oauth_provider = session().get("oauth_provider");
+
+
             if (oauth_provider != null && !oauth_provider.isEmpty()) {
                 pessoaId = Pessoa.getByOAuth(oauth_provider, session().get("oauth_id")).getId();
             } else {
                 pessoaId = p.authLogin(form.get("login"), form.get("password"));
 
-                System.out.println("depois do authLogin");
+                System.out.println("/*2 DEBUG*/ depois do authLogin" + pessoaId.toString());
             }
 
             if (pessoaId != null) {
 
-                System.out.println("antes de colocar valores no session");
+                System.out.println("/*3 DEBUG*/ antes de colocar valores no session");
+
+                p = pessoaDao.getById(pessoaId);
 
                 session().put("conected", p.getNome());
                 session().put("showMenu", "true");
                 session().put("conectedId", pessoaId.toString());
 
-                System.out.println("antes de redirecionar para timeline...");
+
+
 
                 return redirect("/timeline");
 
@@ -76,6 +76,10 @@ public class Index extends Controller {
     public Result logout() {
         /*CLEAR SESSION*/
         session().clear();
+
+        session().put("conected", "");
+
+        System.out.printf("\n************** EU ***************************\n"+session().get("conected"));
 
         return redirect("/");
     }

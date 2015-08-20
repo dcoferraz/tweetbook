@@ -79,7 +79,7 @@ public class Twitter extends Controller {
                                 p.setNome(json.get("name").asText());
 
                                 String cidadeUF = json.get("location").asText();
-                                p.setCidade(cidadeUF.substring(0, cidadeUF.indexOf("-")).trim());
+                                //p.setCidade(cidadeUF.substring(0, cidadeUF.indexOf("-")).trim());
                                 p.setEstado(cidadeUF.substring(cidadeUF.indexOf("-") + 1, cidadeUF.length()));
 
                                 p.setUrlImagem(json.get("profile_image_url").asText());
