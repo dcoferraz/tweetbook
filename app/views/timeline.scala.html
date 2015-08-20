@@ -118,7 +118,7 @@
                 <div class="col s12 l8 offset-l4">
                     <div class="card small">
                         <div class="card-image">
-                            <span class="card-title black-text">por  @post.getIdPessoa</span>
+                            <span class="card-title black-text">por  @post.getCriador().getNome()</span>
                         </div>
                         <div class="card-content">
                             <p>@post.getConteudo</p>
@@ -126,7 +126,7 @@
                         <div class="card-action">
                             <a href="#">Curtir</a>
                             <a href="#">Comentar</a>
-                            <i class="right">@post.getHora.toDate().format("dd/MM/yy HH:mm")</i>
+                            <i class="right">@post.getPostadoEm().format("dd/MM/yy HH:mm")</i>
                         </div>
                     </div>
                 </div>

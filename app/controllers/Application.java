@@ -1,14 +1,17 @@
 package controllers;
 
-import play.data.DynamicForm;
-import play.mvc.*;
-import play.db.jpa.*;
-import views.html.*;
+import com.avaje.ebean.annotation.Transactional;
 import models.Pessoa;
+import play.data.DynamicForm;
 import play.data.Form;
+import play.db.jpa.JPA;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.index;
+
 import java.util.List;
 
-import static play.libs.Json.*;
+import static play.libs.Json.toJson;
 
 public class Application extends Controller {
 

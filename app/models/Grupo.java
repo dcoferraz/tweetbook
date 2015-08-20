@@ -3,21 +3,37 @@ package models;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints.Required;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Grupo extends Model{
 
     @Id
+    @Required
     private Long id;
 
-    @Basic
     @Required
     private String nome;
-    private String descricao;
-    private String urlImagem;
+    @Required
     private Boolean ativo;
+    @Required
     private Boolean publico;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    Pessoa criador;
+
+    @ManyToMany
+    @JoinTable(
+            name = "grupo_participantes",
+            joinColumns = {@JoinColumn(name = "idGrupo", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "idParticipante", referencedColumnName = "id")}
+    )
+    List<Pessoa> participantes;
+
+    public Grupo() {
+    }
+
+
 }

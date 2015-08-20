@@ -4,38 +4,86 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints.Required;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.Constraint;
+import java.util.List;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class Pessoa extends Model {
 
-
     @Id
+    @Required
     private Long id;
 
-    @Basic
     @Required
+    @Column(length = 80, nullable = false)
     private String nome;
 
-    @Basic
     @Required
+    @Column(length = 50, nullable = false)
     private String email;
 
-    @Basic
     @Required
+    @Column(length = 30, nullable = false)
     private String senha;
 
     private String oauth_provider;
     private String oauth_id;
 
-    @Required
     private String urlImagem;
+
+    @Column(length = 1, nullable = false)
     private String sexo;
+
+    @Column(length = 80)
     private String cidade;
+
+    @Column(length = 30)
     private String estado;
+
+    @ManyToMany
+    @JoinTable(
+            name = "amigo",
+            joinColumns = {@JoinColumn(name = "idPessoa", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "idAmigo", referencedColumnName = "id")})
+    private List<Pessoa> amigos;
+
+    @OneToMany
+    private List<Evento> eventosCriados;
+
+    @ManyToMany
+    @JoinTable(
+            name = "evento_participantes",
+            joinColumns = {@JoinColumn(name = "idParticipante", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "idEvento", referencedColumnName = "id")})
+    private List<Evento> eventos;
+
+    @OneToMany
+    private List<Grupo> gruposCriados;
+
+    @ManyToMany
+    @JoinTable(
+            name = "grupo_participantes",
+            joinColumns = {@JoinColumn(name = "idParticipante", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "idGrupo", referencedColumnName = "id")})
+    private List<Grupo> grupos;
+
+    @ManyToMany
+    @JoinTable(
+            name = "posts_curtidas",
+            joinColumns = {@JoinColumn(name = "idPessoa", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "idPost", referencedColumnName = "id")})
+    private List<Pessoa> curtidas;
+
+    @OneToMany
+    private List<Post> postagens;
+
+    @OneToMany
+    private List<Comentario> comentarios;
+
+    public Pessoa() {
+    }
 
     public Long getId() {
         return id;
@@ -117,6 +165,54 @@ public class Pessoa extends Model {
         this.oauth_id = oauth_id;
     }
 
+    public List<Pessoa> getAmigos() {
+        return amigos;
+    }
+
+    public void setAmigos(List<Pessoa> amigos) {
+        this.amigos = amigos;
+    }
+
+    public List<Evento> getEventosCriados() {
+        return eventosCriados;
+    }
+
+    public void setEventosCriados(List<Evento> eventosCriados) {
+        this.eventosCriados = eventosCriados;
+    }
+
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+    public List<Grupo> getGruposCriados() {
+        return gruposCriados;
+    }
+
+    public void setGruposCriados(List<Grupo> gruposCriados) {
+        this.gruposCriados = gruposCriados;
+    }
+
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
+
+    public List<Pessoa> getCurtidas() {
+        return curtidas;
+    }
+
+    public void setCurtidas(List<Pessoa> curtidas) {
+        this.curtidas = curtidas;
+    }
+
     /* ACCESS TO DB */
 
     public Long authLogin(String email, String senha) {
@@ -141,7 +237,7 @@ public class Pessoa extends Model {
     }
 
 
-    public Pessoa getById(Long id) {
+    public static Pessoa getById(Long id) {
 
         Pessoa p = Ebean.find(Pessoa.class)
                 .where().eq("id", id)

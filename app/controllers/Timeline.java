@@ -1,14 +1,16 @@
 package controllers;
 
+import com.avaje.ebean.annotation.Transactional;
+import models.Pessoa;
 import models.Post;
 import org.joda.time.DateTime;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -46,14 +48,15 @@ public class Timeline extends Controller {
 
             Post p = new Post();
 
-            DateTime dt = DateTime.now();
+            Date dt = DateTime.now().toDate();
 
             Long idPessoa = Long.parseLong(session().get("conectedId"));
+            Pessoa currentUser = Pessoa.getById(idPessoa);
 
             p.setAtivo(true);
             p.setConteudo(form.get("post"));
-            p.setIdPessoa(idPessoa);
-            p.setHora(dt);
+            p.setPostadoEm(dt);
+            p.setCriador(currentUser);
 
             p.save();
 

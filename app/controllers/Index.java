@@ -1,13 +1,14 @@
 package controllers;
 
 
+import com.avaje.ebean.annotation.Transactional;
 import models.Pessoa;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.*;
+import views.html.error;
+import views.html.tweetbook;
 
 public class Index extends Controller {
 

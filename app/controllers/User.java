@@ -1,7 +1,7 @@
 package controllers;
 
+import com.avaje.ebean.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
-import play.db.jpa.Transactional;
 import models.Pessoa;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -36,6 +36,8 @@ public class User extends Controller {
     @Transactional
     public Result criar() {
 
+        System.out.println("CONTROLLER USER, METHOD CRIAR");
+
         DynamicForm form = Form.form().bindFromRequest();
 
         if (form.data().size() == 0) {
@@ -68,7 +70,11 @@ public class User extends Controller {
             p.setCidade(form.get("cidade"));
             p.setEstado(form.get("estado"));
 
+            System.out.println("Antes de criar o usuario");
+
             p.save();
+
+            System.out.println("Depois de criar o usuario");
 
             Long pessoaId = p.authLogin(p.getEmail(), p.getSenha());
 
