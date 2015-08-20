@@ -27,6 +27,11 @@ GET         /addComment               controllers.Timeline.addComment(idPessoa:S
 GET         /amigo                    controllers.Amigo.index()
 GET         /addAmigo                 controllers.Amigo.addAmigo(idUser:String,idAmigo:String)
 
+# Grupo
+# ~~~~
+GET         /grupo                    controllers.Grupo.index()
+GET         /addParticipante          controllers.Grupo.addParticipante(idGrupo:String,idParticipante:String)
+
 # Evento
 # ~~~~
 GET         /evento                   controllers.Evento.index()

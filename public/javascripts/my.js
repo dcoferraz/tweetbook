@@ -93,9 +93,9 @@ function addComment() {
 }
 
 /**
- * Open Modal
- * @param postId
- * @description Opens Modal to comment com Post
+ * Salva novo amigo
+ * @param idUser, idAmigo
+ * @description Salva novo amigo no banco
  */
 function addAmigo(idUser, idAmigo){
     $.ajax({
@@ -115,6 +115,43 @@ function addAmigo(idUser, idAmigo){
             $addFriend.removeClass("green-text");
             $addFriend.addClass("red-text");
             $addFriend.text('cancel');
+        },
+        error: function () {
+            alert("Ocorreu um erro ao adicionar um amigo... Tente novamente mais tarde!");
+        }
+    });
+}
+
+/**
+ * Open Modal
+ * @param groupId
+ * @description Opens Modal to invite friends to group
+ */
+function invite(idGrupo) {
+    $('#inviteModal').openModal();
+}
+
+/**
+ * Salva novo participante
+ * @param idGrupo, idParticipante
+ * @description Salva novo participante na relação do grupo
+ */
+function addParticipante(idGrupo, idParticipante){
+    $.ajax({
+        url: '/addParticipante',
+        data: {"idGrupo": idGrupo, "idParticipante" : idParticipante},
+        method: "GET",
+        success: function (data) {
+            var $addParticipante = $('#user-'+idParticipante);
+
+            if(data == "remove"){
+                $addParticipante.removeClass("green-text");
+                $addParticipante.addClass("grey-text");
+                return;
+            }
+
+            $addParticipante.removeClass("grey-text");
+            $addParticipante.addClass("green-text");
         },
         error: function () {
             alert("Ocorreu um erro ao adicionar um amigo... Tente novamente mais tarde!");
