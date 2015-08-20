@@ -6,9 +6,8 @@ import org.joda.time.DateTime;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.Required;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,19 +17,34 @@ public class Post extends Model{
     private Long id;
 
     @Required
-    private Long idPessoa;
-
-    @Basic
-    @Required
     @Constraints.MaxLength(180)
+    @Column(length = 180, nullable = false)
     private String conteudo;
 
-    private String imageUrl;
-
-    private DateTime hora;
+    @Required
+    @Column(nullable = false)
+    private Date postadoEm;
 
     @Required
+    @Column(nullable = false)
     private Boolean ativo;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Pessoa criador;
+
+    @ManyToMany
+    @JoinTable(
+            name = "posts_curtidas",
+            joinColumns = {@JoinColumn(name = "idPost", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "idPessoa", referencedColumnName = "id")})
+    private List<Pessoa> curtidores;
+
+    @OneToMany
+    private List<Comentario> comentarios;
+
+    public Post() {
+    }
 
     public Long getId() {
         return id;
@@ -38,14 +52,6 @@ public class Post extends Model{
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getIdPessoa() {
-        return idPessoa;
-    }
-
-    public void setIdPessoa(Long idPessoa) {
-        this.idPessoa = idPessoa;
     }
 
     public String getConteudo() {
@@ -56,20 +62,12 @@ public class Post extends Model{
         this.conteudo = conteudo;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Date getPostadoEm() {
+        return postadoEm;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public DateTime getHora() {
-        return hora;
-    }
-
-    public void setHora(DateTime hora) {
-        this.hora = hora;
+    public void setPostadoEm(Date postadoEm) {
+        this.postadoEm = postadoEm;
     }
 
     public Boolean getAtivo() {
@@ -78,6 +76,30 @@ public class Post extends Model{
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public List<Pessoa> getCurtidores() {
+        return curtidores;
+    }
+
+    public void setCurtidores(List<Pessoa> curtidores) {
+        this.curtidores = curtidores;
+    }
+
+    public Pessoa getCriador() {
+        return criador;
+    }
+
+    public void setCriador(Pessoa criador) {
+        this.criador = criador;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     public List<Post> timelinePosts() {
@@ -91,7 +113,6 @@ public class Post extends Model{
         }
 
         return lp;
-
 
     }
 }

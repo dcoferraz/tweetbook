@@ -6,7 +6,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 
 libraryDependencies ++= Seq(
   javaJpa,
-  "org.hibernate" % "hibernate-entitymanager" % "4.3.7.Final",
+  "org.hibernate" % "hibernate-entitymanager" % "4.3.9.Final",
   "mysql" % "mysql-connector-java" % "5.1.30",
   javaWs
 )
@@ -15,3 +15,5 @@ libraryDependencies ++= Seq(
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.
 routesGenerator := InjectedRoutesGenerator
+
+fork in run := true
