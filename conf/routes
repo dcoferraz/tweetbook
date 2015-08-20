@@ -3,9 +3,11 @@
 # ~~~~
 
 # Home page
+# ~~~~
 GET         /                         controllers.Index.index()
 POST        /                         controllers.Index.login()
 GET         /logout                   controllers.Index.logout()
+
 # User
 # ~~~~
 GET         /newUser                  controllers.User.novo()
@@ -17,6 +19,18 @@ GET         /profile/:id              controllers.User.profile(id:String)
 # ~~~~
 GET         /timeline                 controllers.Timeline.index()
 POST        /timeline/newpost         controllers.Timeline.newPost()
+GET         /like                     controllers.Timeline.like(id:String)
+GET         /addComment               controllers.Timeline.addComment(idPessoa:String,comentario:String,idPost:String)
+
+# Amigo
+# ~~~~
+GET         /amigo                    controllers.Amigo.index()
+GET         /addAmigo                 controllers.Amigo.addAmigo(idUser:String,idAmigo:String)
+
+# Evento
+# ~~~~
+GET         /evento                   controllers.Evento.index()
+
 
 # Map static resources from the /public folder to the /assets URL path
 # ~~~~

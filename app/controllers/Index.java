@@ -44,25 +44,22 @@ public class Index extends Controller {
 
 
             if (oauth_provider != null && !oauth_provider.isEmpty()) {
+
                 pessoaId = Pessoa.getByOAuth(oauth_provider, session().get("oauth_id")).getId();
+
             } else {
+
                 pessoaId = p.authLogin(form.get("login"), form.get("password"));
 
-                System.out.println("/*2 DEBUG*/ depois do authLogin" + pessoaId.toString());
             }
 
             if (pessoaId != null) {
-
-                System.out.println("/*3 DEBUG*/ antes de colocar valores no session");
 
                 p = pessoaDao.getById(pessoaId);
 
                 session().put("conected", p.getNome());
                 session().put("showMenu", "true");
                 session().put("conectedId", pessoaId.toString());
-
-
-
 
                 return redirect("/timeline");
 
@@ -75,12 +72,14 @@ public class Index extends Controller {
 
 
     public Result logout() {
-        /*CLEAR SESSION*/
+
+        /* CLEAR SESSION */
         session().clear();
 
         session().put("conected", "");
+        session().put("conectedId", "");
 
-        System.out.printf("\n************** EU ***************************\n"+session().get("conected"));
+        System.out.println("/* logout() method called */");
 
         return redirect("/");
     }

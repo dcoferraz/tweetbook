@@ -1,43 +1,13 @@
-New log file opened at Thu Aug 20 02:17:42 BRT 2015 by 7248@LUCAS-PC
-Taking next connection to: 56270
-New client attempting to connect on port: 56271-56270
-  Address = /192.168.0.100:56270
-This client on port 56271 has uuid 5cc64ef6-91f1-4560-a15d-9136f099ed87 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-5cc64ef6-91f1-4560-a15d-9136f099ed87
-Taking next connection to: 56270
+New log file opened at Thu Aug 20 02:30:53 BRT 2015 by 18580@dani-dell
+Taking next connection to: 63180
+New client attempting to connect on port: 63181-63180
+  Address = /192.168.25.179:63180
+This client on port 63181 has uuid a154f528-f192-4423-8b5f-aba1745a396b configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-a154f528-f192-4423-8b5f-aba1745a396b
+Taking next connection to: 63180
 Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56270
+No non-daemon clients connected after 3 min. Shutting down.
+Server socket thread exiting.
+0 clients open, will close them...
+All client sockets have been closed.
+Closing the 18580@dani-dell logs at Thu Aug 20 02:33:57 BRT 2015, goodbye.

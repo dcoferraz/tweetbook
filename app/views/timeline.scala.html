@@ -12,10 +12,11 @@
                         <h5>Seu menu, @session.get("conected")!</h5>
                     </li>
                     <li class="collection-item">
-                        <div>Timeline<a href="/timeline" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        <div>Timeline<a href="/timeline" class="secondary-content"><i class="material-icons">
+                            send</i></a></div>
                     </li>
                     <li class="collection-item">
-                        <div>Amigos<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        <div>Amigos<a href="/amigo" class="secondary-content"><i class="material-icons">send</i></a></div>
                     </li>
                     <li class="collection-item">
                         <div>Evento<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
@@ -32,7 +33,7 @@
                     <li class="collection-item">
                         <div>
                             Meu perfil
-                            <a href="@*routes.User.profile(session.get("conectedId"))*@" class="secondary-content">
+                            <a href="@routes.User.profile(session.get("conectedId"))" class="secondary-content">
                                 <i class="material-icons">send</i>
                             </a>
                         </div>
@@ -52,7 +53,7 @@
                                 <li class="tab col s3"><a class="active" href="#todo-mundo">Todos</a></li>
                                 <li class="tab col s3"><a href="#grupo">Grupo</a></li>
                                 <li class="tab col s3"><a href="#novo-evento">+ Evento</a></li>
-                                <li class="tab col s3 disabled"><a href="#">+ Grupo</a></li>
+                                <li class="tab col s3"><a href="#novo-grupo">+ Grupo</a></li>
                             </ul>
                         </div>
                         <div id="todo-mundo" class="col s12">
@@ -68,7 +69,8 @@
 
                                 <br>
                                 <div class="col s12">
-                                    <button class="waves-effect waves-teal btn secondary-content btn-timeline right">Send</button>
+                                    <button class="waves-effect waves-teal btn secondary-content btn-timeline right">
+                                        Send</button>
                                 </div>
                             </form>
 
@@ -83,8 +85,20 @@
                                 </div>
 
                                 <br>
-                                <div class="col s12">
-                                    <buttton class="waves-effect waves-teal btn secondary-content btn-timeline right">
+                                <div class="col s6">
+
+                                    <div class="input-field col s12" style="margin-top : 0 ;">
+                                        <select>
+                                            <option value="" disabled selected>Escolha seu grupo</option>
+                                            <option value="1">Grupo 1</option>
+                                            <option value="2">Grupo 2</option>
+                                            <option value="3">Grupo 3</option>
+                                        </select>
+                                        @*<label></label>*@
+                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <buttton class="waves-effect waves-teal btn secondary-content btn-timeline right" style="margin-top : 1 rem ;">
                                         Send</buttton>
                                 </div>
                             </form>
@@ -95,11 +109,45 @@
                                 <h5>Crie um novo evento!</h5>
 
                                 <div class="input-field col s12">
-                                    <textarea id="post" name="post" class="materialize-textarea validate" length="180"></textarea>
-                                    <label for="post">Novo evento</label>
+                                    <input id="nome" name="nome" type="text" required/>
+                                    <label for="nomes">Nome</label>
+                                </div>
+                                <p class="col s6 center-align">
+                                    <input type="checkbox" id="publico" name="publico" required/>
+                                    <label for="publico">Publico</label>
+                                </p>
+                                <p class="col s6 center-align">
+                                    <input type="checkbox" id="ativo" name="ativo" required/>
+                                    <label for="ativo">Ativo</label>
+                                </p>
+                                <div class="col s12">
+                                    <buttton class="waves-effect waves-teal btn secondary-content btn-timeline right">
+                                        Send</buttton>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="novo-grupo" class="col s12">
+                            <form>
+                                <h5>Crie um novo grupo!</h5>
+
+                                <div class="input-field col s12">
+                                    <input id="nome" name="nome" type="text"/>
+                                    <label for="nomes">Nome</label>
                                 </div>
 
-                                <br>
+                                <div class="input-field col s12">
+                                    <textarea id="descricao" name="descricao" class="materialize-textarea validate" length="180"></textarea>
+                                    <label for="descricao">Descricao</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="date" class="datepicker" id="data" name="data"/>
+                                    <label for="data">Data</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="local" name="local" type="text"/>
+                                    <label for="local">Local</label>
+                                </div>
+
                                 <div class="col s12">
                                     <buttton class="waves-effect waves-teal btn secondary-content btn-timeline right">
                                         Send</buttton>
@@ -108,31 +156,85 @@
 
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
 
             @for(post <- posts) {
                 <div class="col s12 l8 offset-l4">
                     <div class="card small">
                         <div class="card-image">
-                            <span class="card-title black-text">por  @post.getCriador().getNome()</span>
+                            <span class="card-title black-text">@post.getCriador().getNome() disse:</span>
                         </div>
                         <div class="card-content">
                             <p>@post.getConteudo</p>
                         </div>
                         <div class="card-action">
-                            <a href="#">Curtir</a>
-                            <a href="#">Comentar</a>
+                            <a href="javascript:like(@post.getId)"><i class="material-icons" id="like-@post.getId">thumb_up</i></a>
+                            <a href="javascript:comment(@post.getId)"><i class="material-icons">comment</i></a>
                             <i class="right">@post.getPostadoEm().format("dd/MM/yy HH:mm")</i>
                         </div>
                     </div>
                 </div>
             }
+        </div>
+    </div>
 
+
+
+    <div id="commentModal" class="modal modal-fixed-footer">
+        <div id="modal-content" class="modal-content">
+            <h4>Coment&aacute;rios</h4>
+
+            <ul class="collection">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">folder</i>
+                    <span class="title">Joaonito</span>
+                    <p>First Line
+                    </p>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">folder</i>
+                    <span class="title">Roanito</span>
+                    <p>First Line
+                    </p>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle green">insert_chart</i>
+                    <span class="title">Joselito</span>
+                    <p>First Line
+                    </p>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle red">play_arrow</i>
+                    <span class="title">Lukanito</span>
+                    <p>First Line
+                    </p>
+                </li>
+            </ul>
+
+            <div class="row">
+                <div class="col s8 l12">
+                    <h5>Adicione um coment&aacute;rio</h5>
+
+                    <input type="hidden" id="pessoaNome" name="pessoaNome" value="Chico"/>
+                    <input type="hidden" id="idPost" name="idPost" value="1"/>
+
+                    <div class="row">
+                        <div class="input-field col s10 l10">
+                            <textarea id="comentario" name="comentario" class="materialize-textarea validate" length="180"></textarea>
+                            <label for="comentario">Comentario</label>
+                        </div>
+                        <div class="input-field col s2 l2" style="padding-top:15px;">
+                            <a href="javascript:addComment();" class="btn-floating btn-large waves waves-effect"><i class="material-icons">
+                                send</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red-text">Fechar</a>
+        </div>
     </div>
 }

@@ -1,0 +1,64 @@
+@()
+
+
+@main("Evento") {
+    <div class="container">
+        <div class="row">
+
+                <!--LEFT SIDENAV-->
+            <div class="col l4 hide-on-med-and-down">
+
+                <ul class="collection with-header">
+                    <li class="collection-header">
+                        <h5>Seu menu, @session.get("conected")!</h5>
+                    </li>
+                    <li class="collection-item">
+                        <div>Timeline<a href="/timeline" class="secondary-content"><i class="material-icons">
+                            send</i></a></div>
+                    </li>
+                    <li class="collection-item">
+                        <div>Amigos<a href="/amigo" class="secondary-content"><i class="material-icons">send</i></a></div>
+                    </li>
+                    <li class="collection-item">
+                        <div>Evento<a href="/evento" class="secondary-content"><i class="material-icons">send</i></a></div>
+                    </li>
+                    <li class="collection-item">
+                        <div>Grupo<a href="/grupo" class="secondary-content"><i class="material-icons">send</i></a></div>
+                    </li>
+                    <li class="collection-item">
+                        <div>
+                            Minhas Atividades
+                            <a href="/atividades" class="secondary-content"><i class="material-icons">send</i></a>
+                        </div>
+                    </li>
+                    <li class="collection-item">
+                        <div>
+                            Meu perfil
+                            <a href="@routes.User.profile(session.get("conectedId"))" class="secondary-content">
+                                <i class="material-icons">send</i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+
+
+            </div>
+
+                <!--RIGHT SIDENAV-->
+            <div class="col l8 s12">
+                <div class="row">
+                    <h5>Amigos</h5>
+
+                    <div class="row">
+
+                        <div class="input-field col s12 l12">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="text" class="validate">
+                            <label for="icon_prefix">Search</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
