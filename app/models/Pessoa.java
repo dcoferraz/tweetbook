@@ -6,10 +6,12 @@ import com.avaje.ebean.SqlRow;
 import com.avaje.ebean.SqlUpdate;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.loader.custom.Return;
 import play.data.validation.Constraints.Required;
 
 import javax.persistence.*;
 import javax.validation.Constraint;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -349,5 +351,17 @@ public class Pessoa extends Model {
             return false;
         }
     }
+
+    public List<Long> getAmigosId()
+    {
+        List<Long> amigosId = new ArrayList<>();
+
+        for(Pessoa amigo : getAmigos()) {
+            amigosId.add(amigo.getId());
+        }
+
+        return amigosId;
+    }
+
 
 }
