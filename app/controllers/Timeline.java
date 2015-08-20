@@ -109,12 +109,12 @@ public class Timeline extends Controller {
         return ok(msg);
     }
 
+
     /**
-     * addComment persists a comment to a post
-     * @param idPessoa
-     * @param comentario
+     * get the comments for the ajax call
+     *
      * @param idPost
-     * @return redirect
+     * @return template render
      */
     @Transactional
     public Result getComments(String idPost){
@@ -136,6 +136,13 @@ public class Timeline extends Controller {
 
     }
 
+    /**
+     * addComment persists a comment to a post
+     * @param idPessoa
+     * @param comentario
+     * @param idPost
+     * @return redirect
+     */
     @Transactional
     public Result addComment(String idPessoa, String comentario, String idPost) {
         String msg = "erro";
