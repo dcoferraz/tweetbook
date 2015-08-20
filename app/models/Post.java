@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
+import com.avaje.ebean.SqlRow;
 import org.joda.time.DateTime;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.Required;
@@ -118,25 +119,23 @@ public class Post extends Model {
 
     public Boolean didHeLike(String idPessoa, Long idPost) {
 
-        Long idPe = Long.parseLong(idPessoa);
-
-        Pessoa pessoa = Pessoa.getById(idPe);
-
-        System.out.println("/*******FOR*******/");
+        System.out.println("//parameters: ("+idPessoa+","+idPost+")");
+        String sql = "select l.idPost, l.idPessoa from posts_curtidas l join post p on p.id = l.idPost where l.idPost = :id and l.idPessoa = :idPessoa";
+        SqlRow bug = Ebean.createSqlQuery(sql)
+                .setParameter("id", idPost)
+                .setParameter("idPessoa", idPessoa)
+                .findUnique();
 
         boolean alreadyLiked = false;
+        if(bug != null && !bug.equals("")){
+            String post = bug.getString("idPost") != null ? bug.getString("idPost") : "";
+            String pessoa   = bug.getString("idPessoa");
 
-        for(Pessoa p : pessoa.getCurtidas()){
 
-            if(p.getId().equals(idPost)){
+            if(pessoa != null && pessoa != ""){//TODO: make appropriate check
                 alreadyLiked = true;
-                break;
             }
-
         }
-
-
-        System.out.println("3// curtiu: " + alreadyLiked);
         return alreadyLiked;
     }
 

@@ -2,6 +2,8 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
+import com.avaje.ebean.SqlRow;
+import com.avaje.ebean.SqlUpdate;
 import play.data.validation.Constraints.Required;
 
 import javax.persistence.*;
@@ -257,8 +259,8 @@ public class Pessoa extends Model {
 
         Pessoa p = Ebean.find(Pessoa.class)
                 .where()
-                    .eq("oauth_provider", provider)
-                    .eq("oauth_id", id)
+                .eq("oauth_provider", provider)
+                .eq("oauth_id", id)
                 .findUnique();
 
         if (p != null) {
@@ -270,5 +272,44 @@ public class Pessoa extends Model {
         return null;
     }
 
+    public Boolean didHeLike(Long idPessoa, Long idPost) {
+        String sql = "select l.idPost, l.idPessoa " +
+                "from posts_curtidas l join post p on p.id = l.idPost" +
+                " where l.idPost = :idPost and l.idPessoa = :idPessoa";
+
+        SqlRow bug = Ebean.createSqlQuery(sql)
+                .setParameter("idPost", idPost)
+                .setParameter("idPessoa", idPessoa)
+                .findUnique();
+
+        boolean alreadyLiked = false;
+        if(bug != null && !bug.equals("")){
+            String post = bug.getString("idPost") != null ? bug.getString("idPost") : "";
+            String pessoa   = bug.getString("idPessoa");
+
+
+            if(pessoa != null && pessoa != ""){//TODO: make appropriate check
+                alreadyLiked = true;
+            }
+        }
+        return alreadyLiked;
+    }
+
+
+    public static boolean removeLike(Long idPostAjax, Long idPessoa) {
+        String sql = "delete from posts_curtidas where idPost = :idPost and idPessoa = :idPessoa";
+
+        SqlUpdate update = Ebean.createSqlUpdate(sql)
+                .setParameter("idPost", idPostAjax)
+                .setParameter("idPessoa", idPessoa);
+
+        int rows = update.execute();
+
+        if(rows > 1){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
 }
