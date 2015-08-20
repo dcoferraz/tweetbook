@@ -27,6 +27,10 @@ GET         /addComment               controllers.Timeline.addComment(idPessoa:S
 GET         /amigo                    controllers.Amigo.index()
 GET         /addAmigo                 controllers.Amigo.addAmigo(idUser:String,idAmigo:String)
 
+# Evento
+# ~~~~
+GET         /evento                   controllers.Evento.index()
+
 
 # Map static resources from the /public folder to the /assets URL path
 # ~~~~
