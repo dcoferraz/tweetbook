@@ -14,6 +14,8 @@ import java.util.List;
 
 public class Timeline extends Controller {
 
+    int likeCounterTest = 0;
+
     public Result index() {
 
         System.out.println("INDEX TIMELINE");
@@ -62,5 +64,33 @@ public class Timeline extends Controller {
             return redirect("/timeline");
         }
 
+    }
+
+    public Result like(String id) {
+        String msg = "";
+
+        if (likeCounterTest == 0) {
+            likeCounterTest++;
+            msg = "blue-text";
+            //TODO: persist likes
+        } else if (likeCounterTest == 1) {
+            likeCounterTest--;
+            msg = "remove";
+            //TODO: persist dislikes
+        }
+
+        return ok(msg);
+    }
+
+    public Result addComment(String idPessoa,String comentario,String idPost) {
+        String msg;
+
+        if(idPessoa != null && comentario != null && idPost != null){
+            msg = "ok";
+            //TODO: persist comments
+        }else{
+            msg = "erro";
+        }
+        return ok(msg);
     }
 }

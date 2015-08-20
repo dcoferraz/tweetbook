@@ -18,10 +18,6 @@ public class Comentario extends Model{
     @Constraints.MaxLength(180)
     private String comentario;
 
-    @Required
-    private String email;
-    private String cidade;
-    private String estado;
     private Boolean ativo;
 
 }

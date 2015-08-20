@@ -31,3 +31,8 @@ main {
 .card.small .card-content {
     height: 80px !important;
 }
+
+
+nav .brand-logo {
+    padding: 0 0 0 20px;
+}

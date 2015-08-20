@@ -19,4 +19,6 @@ public class Amigo extends Model{
 
     @Required
     private Boolean ativo;
+
+
 }
