@@ -1,4 +1,4 @@
-@()
+@(pessoas : List[Pessoa])
 
 @main("Amigo") {
     <div class="container">
@@ -56,76 +56,37 @@
                             <label for="icon_prefix">Search</label>
                         </div>
 
+                        @for(pessoa <- pessoas) {
                         <div class="col s12 l6">
                             <div class="card">
                                 <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" src="http://orig05.deviantart.net/5278/f/2011/227/f/d/profile_picture_by_rod_d_ruffy-d46p9u1.jpg">
+                                    <img class="activator" src="@if(pessoa.getUrlImagem() != null && !pessoa.getUrlImagem().isEmpty()) { @pessoa.getUrlImagem() } else { http://www.bsd405.org/wp-content/uploads/2015/05/No-Photo-Placeholder.png } ">
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title activator grey-text text-darken-4">
-                                        User 1
+                                        @pessoa.getNome()
                                         <i class="material-icons right">more_vert</i>
                                     </span>
                                     @*<p><a href="#">This is a link</a></p>*@
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4">
-                                        User 1<i class="material-icons right">close</i></span>
+                                        @pessoa.getNome()<i class="material-icons right">close</i></span>
                                     <p>
-                                        <strong>Nome</strong>: User          <br>
-                                        <strong>Email</strong>: email        <br>
-                                        <strong>Sexo</strong>: M             <br>
-                                        <strong>Cidade</strong>: Campinas    <br>
-                                        <strong>Estado</strong>: SP          <br>
+                                        <strong>Email</strong>: @pessoa.getEmail() <br>
+                                        <strong>Sexo</strong>: @if(pessoa.getSexo().equals("M")) { Masculino } else { Feminino }  <br>
+                                        <strong>Cidade</strong>: @pessoa.getCidade() <br>
+                                        <strong>Estado</strong>: @pessoa.getEstado() <br>
                                     </p>
                                     <p>
-                                        <a href="javascript:addAmigo(1,2);">
-                                            <i class="material-icons green-text" id="user-2">person_add</i>
+                                        <a href="javascript:addAmigo(@session.get("conectedId"),@pessoa.getId());">
+                                            <i class="material-icons green-text" id="user-@pessoa.getId()">person_add</i>
                                         </a>
                                     </p>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col s12 l6">
-                            <div class="card">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" src="http://orig13.deviantart.net/6706/f/2014/066/3/f/profile_picture_by_corryrox-d799g57.jpg">
-                                </div>
-                                <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">
-                                        User 2
-                                        <i class="material-icons right">more_vert</i>
-                                    </span>
-                                    @*<p><a href="#">This is a link</a></p>*@
-                                </div>
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">
-                                        User 2<i class="material-icons right">close</i></span>
-                                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col s12 l6">
-                            <div class="card">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" src="http://d24b33.medialib.edu.glogster.com/avatars/users/2/0/53/27/532713.png?v=1429912067">
-                                </div>
-                                <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">
-                                        User 3
-                                        <i class="material-icons right">more_vert</i>
-                                    </span>
-                                    @*<p><a href="#">This is a link</a></p>*@
-                                </div>
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">
-                                        User 3<i class="material-icons right">close</i></span>
-                                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                                </div>
-                            </div>
-                        </div>
+                        }
 
 
                     </div>
