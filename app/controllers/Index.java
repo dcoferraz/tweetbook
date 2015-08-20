@@ -7,8 +7,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.error;
-import views.html.tweetbook;
+import views.html.*;
 
 public class Index extends Controller {
 
@@ -16,15 +15,27 @@ public class Index extends Controller {
 
     public Result index() {
 
-        String isConected = session().get("conected");
+        String isConected = null;
 
-        if (isConected != null && (!isConected.equals(""))) {
+        if(session().get("conected") != null){
+            isConected = session().get("conected");
             session().put("showMenu", "true");
             return redirect("/timeline");
-        } else {
-            session().put("showMenu", "false");
-            return ok(tweetbook.render());
         }
+
+
+        session().put("conected", "");
+        session().put("conectedId", "");
+
+ /*       System.out.println("// isConected: " + isConected);
+
+        if (isConected != null || (!isConected.equals(""))) {
+
+        }*/
+
+        session().put("showMenu", "false");
+        return ok(tweetbook.render());
+
     }
 
     @Transactional
@@ -79,8 +90,8 @@ public class Index extends Controller {
         /* CLEAR SESSION */
         session().clear();
 
-        session().put("conected", "");
-        session().put("conectedId", "");
+        /*session().put("conected", "");
+        session().put("conectedId", "");*/
 
         System.out.println("/* logout() method called */");
 

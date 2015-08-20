@@ -5,7 +5,7 @@
 # Home page
 # ~~~~
 GET         /                         controllers.Index.index()
-POST        /                         controllers.Index.login()
+POST        /login                    controllers.Index.login()
 GET         /logout                   controllers.Index.logout()
 
 # User
