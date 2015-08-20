@@ -229,10 +229,10 @@
                     <div class="row">
                         <div class="input-field col s10 l10">
                             <textarea id="comentario" name="comentario" class="materialize-textarea validate" length="180"></textarea>
-                            <label for="comentario">Comentario</label>
+                            <label for="comentario">Coment&aacute;rio</label>
                         </div>
                         <div class="input-field col s2 l2" style="padding-top:15px;">
-                            <a href="javascript:addComment();" class="btn-floating btn-large waves waves-effect">
+                            <a href="javascript:addComment(@session.get("conectedId"));" class="btn-floating btn-large waves waves-effect">
                                 <i class="material-icons">send</i>
                             </a>
                         </div>

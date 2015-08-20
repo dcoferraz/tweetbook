@@ -1,11 +1,15 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Transactional;
+import javafx.geometry.Pos;
+import models.Comentario;
 import models.Pessoa;
 import models.Post;
 import org.joda.time.DateTime;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
@@ -91,14 +95,50 @@ public class Timeline extends Controller {
         return ok(msg);
     }
 
+    @Transactional
+    public Result getComments(String idPost){
+
+        Long _idPost = Long.parseLong(idPost);
+
+        List<Comentario> listaComents = Ebean.find(Comentario.class)
+                .where()
+                    .eq("post_id", _idPost)
+                    .eq("ativo", true)
+                .findList();
+
+        if (listaComents != null) {
+
+            return ok(Json.toJson(listaComents));
+        }
+
+        return ok("erro");
+
+    }
+
+    @Transactional
     public Result addComment(String idPessoa, String comentario, String idPost) {
-        String msg;
+        String msg = "erro";
 
         if (idPessoa != null && comentario != null && idPost != null) {
+
+            Pessoa usuario = Ebean.find(Pessoa.class, Long.valueOf(idPessoa));
+            if (usuario == null)
+                return ok(msg);
+
+            Post post = Ebean.find(Post.class, Long.valueOf(idPost));
+            if (post == null)
+                return ok(msg);
+
+            Comentario c = new Comentario();
+            c.setCriador(usuario);
+            c.setTexto(comentario);
+            c.setAtivo(true);
+
+            c.setPost(post);
+
+            c.save();
+
             msg = "ok";
-            //TODO: persist comments
-        } else {
-            msg = "erro";
         }
         return ok(msg);
     }
