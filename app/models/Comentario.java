@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.Required;
 
@@ -25,6 +26,7 @@ public class Comentario extends Model{
     @JoinColumn(nullable = false)
     private Pessoa criador;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false)
     private Post post;

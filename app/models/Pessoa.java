@@ -4,6 +4,8 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.SqlRow;
 import com.avaje.ebean.SqlUpdate;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import play.data.validation.Constraints.Required;
 
 import javax.persistence.*;
@@ -44,6 +46,7 @@ public class Pessoa extends Model {
     @Column(length = 30)
     private String estado;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "amigo",
@@ -51,6 +54,7 @@ public class Pessoa extends Model {
             inverseJoinColumns = {@JoinColumn(name = "idAmigo", referencedColumnName = "id")})
     private List<Pessoa> amigos;
 
+    @JsonIgnore
     @OneToMany
     private List<Evento> eventosCriados;
 
@@ -61,6 +65,7 @@ public class Pessoa extends Model {
             inverseJoinColumns = {@JoinColumn(name = "idEvento", referencedColumnName = "id")})
     private List<Evento> eventos;
 
+    @JsonIgnore
     @OneToMany
     private List<Grupo> gruposCriados;
 

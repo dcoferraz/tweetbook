@@ -63,6 +63,32 @@ function like(idPost, idUser) {
  */
 function comment(id) {
 
+    $.ajax({
+        url: '/getComments',
+        data: {"idPost": id},
+        method: "GET",
+        success: function (data) {
+            if (data == "erro") {
+                alert("Erro... :(");
+                return;
+            }
+
+            $("#modal-content ul").empty();
+
+            console.log(data);
+
+            $(data).each(function (i,e){
+                console.log(e);
+                var commmentString = '<li class="collection-item avatar"><i class="material-icons circle red">play_arrow</i><span class="title">' + e["criador"]["nome"] + '</span><p>' + e["texto"] + '</p></li>';
+                $("#modal-content ul").append(commmentString);
+            });
+
+        },
+        error: function () {
+            Materialize.toast("Ocorreu um erro carregar os comentarios... Tente novamente mais tarde!", 4000);
+        }
+    });
+
 
     $('#idPost').val(id);
     $('#commentModal').openModal();
@@ -72,7 +98,7 @@ function comment(id) {
  * Add Comment
  * @description Gets the form from the modal screen and ajax's it to persist
  */
-function addComment() {
+function addComment(idUsuario) {
     var pessoaNome = $('#pessoaNome').val();
     var comentario = $('#comentario').val();
     var idPost = $('#idPost').val();
@@ -80,7 +106,7 @@ function addComment() {
 
     $.ajax({
         url: '/addComment',
-        data: {"idPessoa": pessoaNome, "comentario": comentario, "idPost": idPost},
+        data: {"idPessoa": idUsuario, "comentario": comentario, "idPost": idPost},
         method: "GET",
         success: function (data) {
             if (data == "erro") {
