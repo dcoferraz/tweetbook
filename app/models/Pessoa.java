@@ -10,6 +10,7 @@ import play.data.validation.Constraints.Required;
 
 import javax.persistence.*;
 import javax.validation.Constraint;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -348,6 +349,16 @@ public class Pessoa extends Model {
         }else {
             return false;
         }
+    }
+
+    public List<String> getAmigosId(){
+        List<String>amigosId = new ArrayList<>();
+
+        for(Pessoa amigo : getAmigos()) {
+            amigosId.add(amigo.getId().toString());
+        }
+
+        return amigosId;
     }
 
 }

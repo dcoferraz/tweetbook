@@ -77,11 +77,7 @@ public class User extends Controller {
             p.setCidade(form.get("cidade"));
             p.setEstado(form.get("estado"));
 
-            System.out.println("Antes de criar o usuario");
-
             p.save();
-
-            System.out.println("Depois de criar o usuario");
 
             Long pessoaId = p.authLogin(p.getEmail(), p.getSenha());
 
@@ -107,9 +103,6 @@ public class User extends Controller {
         Pessoa p;
 
         p = pessoaDAO.getById(idPessoa);
-
-        System.out.println("Achei um com nome: " + p.getNome());
-
 
         return ok(profile.render(p));
     }

@@ -1,6 +1,5 @@
 package controllers;
 
-
 import com.avaje.ebean.annotation.Transactional;
 import models.Pessoa;
 import play.data.DynamicForm;
@@ -20,23 +19,13 @@ public class Index extends Controller {
 
     public Result index() {
 
-        String isConected = null;
-
         if(session().get("conected") != null){
-            isConected = session().get("conected");
             session().put("showMenu", "true");
             return redirect("/timeline");
         }
 
-
         session().put("conected", "");
         session().put("conectedId", "");
-
- /*       System.out.println("// isConected: " + isConected);
-
-        if (isConected != null || (!isConected.equals(""))) {
-
-        }*/
 
         session().put("showMenu", "false");
         return ok(tweetbook.render());
@@ -78,11 +67,9 @@ public class Index extends Controller {
                 p = pessoaDao.getById(pessoaId);
 
                 session().put("conected", p.getNome());
-                System.out.println("3/// Session nome: " + session().get("conected"));
 
                 session().put("showMenu", "true");
                 session().put("conectedId", pessoaId.toString());
-                System.out.println("4/// Session ID: " + session().get("conectedId"));
 
                 return redirect("/timeline");
 
@@ -101,11 +88,6 @@ public class Index extends Controller {
 
         /* CLEAR SESSION */
         session().clear();
-
-        /*session().put("conected", "");
-        session().put("conectedId", "");*/
-
-        System.out.println("/* logout() method called */");
 
         return redirect("/");
     }

@@ -66,7 +66,6 @@ public class Twitter extends Controller {
                                 // se foi encontrado um usuario no banco, entao redirecionar para a tela principal
                                 session().put("oauth_id", json.get("id").asText());
 
-                                System.out.println("encontrou usuario a partir do twitter");
 
                                 session().put("conected", p.getNome());
                                 session().put("showMenu", "true");
@@ -107,7 +106,6 @@ public class Twitter extends Controller {
             if (Strings.isNullOrEmpty(verifier)) {
                 String url = routes.Twitter.auth().absoluteURL(request());
 
-                System.out.println("url obtida: " + url);
 
                 RequestToken requestToken = TWITTER.retrieveRequestToken(url);
                 saveSessionTokenPair(requestToken);

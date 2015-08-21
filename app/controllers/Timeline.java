@@ -38,7 +38,6 @@ public class Timeline extends Controller {
     @Transactional
     public Result newPost() {
 
-        System.out.println("newPost");
 
         DynamicForm form = Form.form().bindFromRequest();
 
@@ -62,7 +61,6 @@ public class Timeline extends Controller {
 
             p.save();
 
-            System.out.println("Criado um post em: " + dt);
 
             return redirect("/timeline");
         }
@@ -79,25 +77,19 @@ public class Timeline extends Controller {
     public Result like(String idPost, String idUser) {
         String msg;
 
-        System.out.println("//5 idUser like(): "+idUser);
-
         Long idPessoa = Long.parseLong(idUser);
         Long idPostAjax = Long.parseLong(idPost);
-
-        System.out.println("6// idPessoa: "+idPessoa);
 
         Pessoa p1 = Pessoa.getById(idPessoa);
 
         if(p1.didHeLike(idPessoa,idPostAjax)){
             msg = "remove";
 
-            System.out.println("9// remove");
             //TODO: remove likes
             p1.removeLike(idPostAjax, idPessoa);
 
         } else {
             msg = "blue-text";
-            System.out.println("9// add");
             //TODO: persist likes
 
             Pessoa p2 = new Pessoa();
