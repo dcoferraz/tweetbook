@@ -79,7 +79,7 @@ function comment(id) {
 
             $(data).each(function (i,e){
                 console.log(e);
-                var commmentString = '<li class="collection-item avatar"><i class="material-icons circle red">play_arrow</i><span class="title">' + e["criador"]["nome"] + '</span><p>' + e["texto"] + '</p></li>';
+                var commmentString = '<li class="collection-item avatar"><img src="'+e["criador"]["urlImagem"]+'" class="circle"><span class="title">' + e["criador"]["nome"] + '</span><p>' + e["texto"] + '</p></li>';
                 $("#modal-content ul").append(commmentString);
             });
 
@@ -114,7 +114,7 @@ function addComment(idUsuario) {
                 return;
             }
 
-            var commmentString = '<li class="collection-item avatar"><i class="material-icons circle red">play_arrow</i><span class="title">' + pessoaNome + '</span><p>' + comentario + '</p></li>';
+            var commmentString = '<li class="collection-item avatar"><i class="material-icons circle red">comment</i><span class="title">' + pessoaNome + '</span><p>' + comentario + '</p></li>';
             $("#modal-content ul").append(commmentString);
             $('#comentario').val("");
 

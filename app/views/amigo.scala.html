@@ -1,3 +1,4 @@
+@import akka.util.Helpers.Requiring
 @(pessoas : List[Pessoa])
 
 @main("Amigo") {
@@ -79,7 +80,7 @@
                                     </p>
                                     <p>
                                         <a href="javascript:addAmigo(@session.get("conectedId"),@pessoa.getId());">
-                                            <i class="material-icons green-text" id="user-@pessoa.getId()">person_add</i>
+                                            <i id="user-@pessoa.getId()" class="material-icons  @if(pessoa.getAmigosId().indexOf(session.get("conectedId")) >= 0) { red-text" > cancel } else { green-text" > person_add}</i>
                                         </a>
                                     </p>
                                 </div>
