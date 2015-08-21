@@ -77,6 +77,7 @@ public class Pessoa extends Model {
             inverseJoinColumns = {@JoinColumn(name = "idGrupo", referencedColumnName = "id")})
     private List<Grupo> grupos;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "posts_curtidas",
@@ -84,9 +85,11 @@ public class Pessoa extends Model {
             inverseJoinColumns = {@JoinColumn(name = "idPost", referencedColumnName = "id")})
     private List<Pessoa> curtidas;
 
+    @JsonIgnore
     @OneToMany
     private List<Post> postagens;
 
+    @JsonIgnore
     @OneToMany
     private List<Comentario> comentarios;
 
