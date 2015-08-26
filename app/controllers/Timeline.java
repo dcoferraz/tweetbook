@@ -3,9 +3,7 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Transactional;
 import javafx.geometry.Pos;
-import models.Comentario;
-import models.Pessoa;
-import models.Post;
+import models.*;
 import org.joda.time.DateTime;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -14,6 +12,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -161,5 +161,38 @@ public class Timeline extends Controller {
             msg = "ok";
         }
         return ok(msg);
+    }
+
+    /**
+     * Pesists new Group
+     * @param idUser
+     * @param local
+     * @param data
+     * @param descricao
+     * @param nome
+     * @return String
+     */
+    @Transactional
+    public Result addGroup(String idUser, String publico, String ativo, String nome) {
+
+        System.out.println("CHEGOU NO ADD GROUP");
+
+        Long _idUser= Long.parseLong(idUser);
+
+        Pessoa p = Pessoa.getById(_idUser);
+
+        models.Grupo g = new models.Grupo();
+
+        g.setNome(nome);
+        g.setCriador(p);
+        g.setAtivo(Boolean.parseBoolean(ativo));
+        g.setPublico(Boolean.parseBoolean(publico));
+
+        g.save();
+
+
+        return ok("ok!");
+
+
     }
 }

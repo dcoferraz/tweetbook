@@ -8,12 +8,14 @@ GET         /                         controllers.Index.index()
 POST        /login                    controllers.Index.login()
 GET         /logout                   controllers.Index.logout()
 
+
 # User
 # ~~~~
 GET         /newUser                  controllers.User.novo()
 POST        /newUser                  controllers.User.criar()
 POST        /editar                   controllers.User.editar()
 GET         /profile/:id              controllers.User.profile(id:String)
+
 
 # Timeline
 # ~~~~
@@ -22,20 +24,25 @@ POST        /timeline/newpost         controllers.Timeline.newPost()
 GET         /like                     controllers.Timeline.like(idPost:String,idUser:String)
 GET         /addComment               controllers.Timeline.addComment(idPessoa:String,comentario:String,idPost:String)
 GET         /getComments              controllers.Timeline.getComments(idPost:String)
+GET         /addGroup                 controllers.Timeline.addGroup(idUser:String,publico:String,ativo:String,nome:String)
+
 
 # Atividades
 # ~~~~
 GET         /atividades               controllers.Atividades.index()
+
 
 # Amigo
 # ~~~~
 GET         /amigo                    controllers.Amigo.index()
 GET         /addAmigo                 controllers.Amigo.addAmigo(idUser:String,idAmigo:String)
 
+
 # Grupo
 # ~~~~
 GET         /grupo                    controllers.Grupo.index()
 GET         /addParticipante          controllers.Grupo.addParticipante(idGrupo:String,idParticipante:String)
+
 
 # Evento
 # ~~~~

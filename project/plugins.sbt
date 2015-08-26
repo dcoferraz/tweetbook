@@ -19,3 +19,6 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.1.0")
 // enablePlugins(SbtEbean). Note, uncommenting this line will automatically bring in
 // Play enhancer, regardless of whether the line above is commented out or not.
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-ebean" % "1.0.0")
+
+// for sbt 0.13.x
+addSbtPlugin("org.netbeans.nbsbt" % "nbsbt-plugin" % "1.1.4")

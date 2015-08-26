@@ -41,7 +41,7 @@ function like(idPost, idUser) {
         data: {"idPost": idPost, "idUser": idUser},
         method: "GET",
         success: function (data) {
-            var $like = $('#like-'+idPost);
+            var $like = $('#like-' + idPost);
             if (data == "remove") {
                 $like.removeClass("blue-text");
                 return;
@@ -77,9 +77,9 @@ function comment(id) {
 
             console.log(data);
 
-            $(data).each(function (i,e){
+            $(data).each(function (i, e) {
                 console.log(e);
-                var commmentString = '<li class="collection-item avatar"><img src="'+e["criador"]["urlImagem"]+'" class="circle"><span class="title">' + e["criador"]["nome"] + '</span><p>' + e["texto"] + '</p></li>';
+                var commmentString = '<li class="collection-item avatar"><img src="' + e["criador"]["urlImagem"] + '" class="circle"><span class="title">' + e["criador"]["nome"] + '</span><p>' + e["texto"] + '</p></li>';
                 $("#modal-content ul").append(commmentString);
             });
 
@@ -102,7 +102,6 @@ function addComment(idUsuario) {
     var pessoaNome = $('#pessoaNome').val();
     var comentario = $('#comentario').val();
     var idPost = $('#idPost').val();
-    ;
 
     $.ajax({
         url: '/addComment',
@@ -197,6 +196,57 @@ function addParticipante(idGrupo, idParticipante) {
         },
         error: function () {
             alert("Ocorreu um erro ao adicionar um amigo... Tente novamente mais tarde!");
+        }
+    });
+}
+
+/**
+ * Create new Group
+ *
+ * @description Creates new group
+ */
+function addGroup() {
+
+    var ativo = $('#ativo:checked').val();
+    var publico = $('#publico:checked').val();
+    var groupName = $('#groupName').val();
+    var idUser = $('#idUser').val();
+
+
+    if(ativo == undefined){
+        ativo = false;
+    }else {
+        ativo = true;
+    }
+
+    if(publico == undefined){
+        publico = false;
+    }else {
+        publico = true;
+    }
+
+    alert('Ativo: '+ativo + '\nPublico: ' + publico + '\nGroup Name: ' + groupName + '\nidUser: >' + idUser + '<');
+
+
+
+    $.ajax({
+        url: '/addGroup',
+        data: {"idUser": idUser, "publico": publico, "ativo": ativo, "nome": nome},
+        method: "GET",
+        success: function (data) {
+
+            if (data == "ok") {
+                Materialize.toast('<span>Grupo adicionado com sucesso</span><a class="btn-flat yellow-text" href="#!">OK<a>', 4000);
+                return;
+            }
+
+            /*$addFriend.removeClass("green-text");
+            $addFriend.addClass("red-text");
+            $addFriend.text('cancel');
+            Materialize.toast('<span>Adicionado com sucesso</span><a class="btn-flat green-text" href="#!">OK<a>', 4000);*/
+        },
+        error: function () {
+            alert("Ocorreu um erro ao adicionar um grupo... Tente novamente mais tarde!");
         }
     });
 }
