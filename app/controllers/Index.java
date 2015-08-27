@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Transactional;
 import models.Pessoa;
 import play.data.DynamicForm;
@@ -9,8 +10,6 @@ import play.mvc.Result;
 import views.html.*;
 
 public class Index extends Controller {
-
-    private Pessoa pessoaDao = new Pessoa();
 
     /**
      * index
@@ -47,27 +46,20 @@ public class Index extends Controller {
 
         } else {
 
-            Pessoa p = new Pessoa();
             Long pessoaId = null;
             String oauth_provider = session().get("oauth_provider");
 
-
             if (oauth_provider != null && !oauth_provider.isEmpty()) {
-
                 pessoaId = Pessoa.getByOAuth(oauth_provider, session().get("oauth_id")).getId();
-
             } else {
-
-                pessoaId = p.authLogin(form.get("login"), form.get("password"));
-
+                pessoaId = Pessoa.authLogin(form.get("login"), form.get("password"));
             }
 
             if (pessoaId != null) {
 
-                p = pessoaDao.getById(pessoaId);
+                Pessoa p = Ebean.find(Pessoa.class, pessoaId);
 
                 session().put("conected", p.getNome());
-
                 session().put("showMenu", "true");
                 session().put("conectedId", pessoaId.toString());
 
@@ -76,7 +68,6 @@ public class Index extends Controller {
             } else {
                 return ok(error.render("Login/Senha incorretos! Tente novamente! :)"));
             }
-
         }
     }
 

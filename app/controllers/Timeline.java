@@ -1,7 +1,11 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Expr;
+import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.annotation.Transactional;
+import com.avaje.ebean.bean.EntityBean;
+import com.sun.org.apache.xpath.internal.ExpressionNode;
 import javafx.geometry.Pos;
 import models.*;
 import org.joda.time.DateTime;
@@ -25,8 +29,14 @@ public class Timeline extends Controller {
      * @return redirect
      */
     public Result index() {
-        Post p = new Post();
-        List<Post> lp = p.timelinePosts();
+        Long idPessoa = Long.parseLong(session().get("conectedId"));
+        Pessoa currentUser = Ebean.find(Pessoa.class, idPessoa);
+
+        List<Post> lp = Ebean.find(Post.class)
+                .where()
+                .or(Expr.eq("criador", currentUser), Expr.in("criador", currentUser.getAmigos()))
+                .order("postado_em DESC")
+                .findList();
 
         return ok(timeline.render(lp));
     }
@@ -52,7 +62,7 @@ public class Timeline extends Controller {
             Date dt = DateTime.now().toDate();
 
             Long idPessoa = Long.parseLong(session().get("conectedId"));
-            Pessoa currentUser = Pessoa.getById(idPessoa);
+            Pessoa currentUser = Ebean.find(Pessoa.class, idPessoa);
 
             p.setAtivo(true);
             p.setConteudo(form.get("post"));
@@ -80,23 +90,22 @@ public class Timeline extends Controller {
         Long idPessoa = Long.parseLong(idUser);
         Long idPostAjax = Long.parseLong(idPost);
 
-        Pessoa p1 = Pessoa.getById(idPessoa);
+        Pessoa p1 = Ebean.find(Pessoa.class, idPessoa);
+        Post postagem = Ebean.find(Post.class, idPostAjax);
 
-        if(p1.didHeLike(idPessoa,idPostAjax)){
+        // if the user already liked
+        if(postagem.getCurtidores().contains(p1)){
+            // dislike
+            postagem.getCurtidores().remove(p1);
             msg = "remove";
-
-            //TODO: remove likes
-            p1.removeLike(idPostAjax, idPessoa);
-
         } else {
+            // like (if the user has not liked)
+            postagem.getCurtidores().add(p1);
             msg = "blue-text";
-            //TODO: persist likes
-
-            Pessoa p2 = new Pessoa();
-            p2.setId(idPostAjax);
-            p1.getCurtidas().add(p2);
-            p1.save();
         }
+
+        // save the post to persist this like/dislike
+        postagem.save();
 
         return ok(msg);
     }
@@ -163,36 +172,4 @@ public class Timeline extends Controller {
         return ok(msg);
     }
 
-    /**
-     * Pesists new Group
-     * @param idUser
-     * @param local
-     * @param data
-     * @param descricao
-     * @param nome
-     * @return String
-     */
-    @Transactional
-    public Result addGroup(String idUser, String publico, String ativo, String nome) {
-
-        System.out.println("CHEGOU NO ADD GROUP");
-
-        Long _idUser= Long.parseLong(idUser);
-
-        Pessoa p = Pessoa.getById(_idUser);
-
-        models.Grupo g = new models.Grupo();
-
-        g.setNome(nome);
-        g.setCriador(p);
-        g.setAtivo(Boolean.parseBoolean(ativo));
-        g.setPublico(Boolean.parseBoolean(publico));
-
-        g.save();
-
-
-        return ok("ok!");
-
-
-    }
 }

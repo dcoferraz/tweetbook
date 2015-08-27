@@ -178,10 +178,14 @@
                         <div class="card-action">
                             <a href="javascript:like(@post.getId,@session.get("conectedId"))">
                                 <i
-                                class="material-icons @if(post.didHeLike(session.get("conectedId"), post.getId)){blue-text}"
+                                class="material-icons @if(post.hasLiked(session.get("conectedId"))){blue-text}"
                                 id="like-@post.getId">thumb_up</i>
+                                <span class=" @if(post.hasLiked(session.get("conectedId"))){blue-text}">(@post.getCurtidores().size())</span>
                             </a>
-                            <a href="javascript:comment(@post.getId)"><i class="material-icons">comment</i></a>
+                            <a href="javascript:comment(@post.getId)">
+                                <i class="material-icons">comment</i>
+                                <span>(@post.getComentarios().size())</span>
+                            </a>
                             <i class="right">@post.getPostadoEm().format("dd/MM/yy HH:mm")</i>
                         </div>
                     </div>
@@ -196,6 +200,30 @@
         <div id="modal-content" class="modal-content">
             <h4>Coment&aacute;rios</h4>
 
+            <div class="row">
+                <div class="col s8 l12">
+                    <h5>Adicione um coment&aacute;rio</h5>
+
+                    <input type="hidden" id="pessoaNome" name="pessoaNome" value="@session.get("conected")"/>
+                    <input type="hidden" id="idPost" name="idPost" value=""/>
+
+                    <div class="row">
+                        <div class="input-field col s10 l10">
+                            <textarea id="comentario" name="comentario" class="materialize-textarea validate" length="180"></textarea>
+                            <label for="comentario">Coment&aacute;rio</label>
+                        </div>
+                        <div class="input-field col s2 l2" style="padding-top:15px;">
+                            <a href="javascript:addComment(@session.get("conectedId"));" class="btn-floating btn-large waves waves-effect">
+                                <i class="material-icons">send</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s8 l12">
             <ul class="collection">
                 <li class="collection-item avatar">
                     <i class="material-icons circle">folder</i>
@@ -222,27 +250,9 @@
                     </p>
                 </li>
             </ul>
-
-            <div class="row">
-                <div class="col s8 l12">
-                    <h5>Adicione um coment&aacute;rio</h5>
-
-                    <input type="hidden" id="pessoaNome" name="pessoaNome" value="@session.get("conected")"/>
-                    <input type="hidden" id="idPost" name="idPost" value=""/>
-
-                    <div class="row">
-                        <div class="input-field col s10 l10">
-                            <textarea id="comentario" name="comentario" class="materialize-textarea validate" length="180"></textarea>
-                            <label for="comentario">Coment&aacute;rio</label>
-                        </div>
-                        <div class="input-field col s2 l2" style="padding-top:15px;">
-                            <a href="javascript:addComment(@session.get("conectedId"));" class="btn-floating btn-large waves waves-effect">
-                                <i class="material-icons">send</i>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
+
         </div>
 
         <div class="modal-footer">

@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Pessoa;
@@ -10,13 +11,13 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
+import java.util.List;
+
 
 /**
  * Created by Daniel on 16/08/2015.
  */
 public class User extends Controller {
-
-    Pessoa pessoaDAO = new Pessoa();
 
     /**
      * novo persists new user
@@ -79,7 +80,7 @@ public class User extends Controller {
 
             p.save();
 
-            Long pessoaId = p.authLogin(p.getEmail(), p.getSenha());
+            Long pessoaId = Pessoa.authLogin(p.getEmail(), p.getSenha());
 
             session().put("conected", p.getNome());
             session().put("showMenu", "true");
@@ -102,7 +103,7 @@ public class User extends Controller {
 
         Pessoa p;
 
-        p = pessoaDAO.getById(idPessoa);
+        p = Ebean.find(Pessoa.class, idPessoa);
 
         return ok(profile.render(p));
     }
@@ -140,5 +141,17 @@ public class User extends Controller {
             return redirect("/timeline");
 
         }
+    }
+
+    public Result getPessoas()
+    {
+        List<Pessoa> pessoasAtivo = Ebean.find(Pessoa.class).findList();
+
+        if (pessoasAtivo != null)
+        {
+            return ok(Json.toJson(pessoasAtivo));
+        }
+
+        return ok("erro");
     }
 }

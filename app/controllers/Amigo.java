@@ -42,10 +42,10 @@ public class Amigo extends Controller {
             // search if they are friends
 
             Long idPessoa1 = Long.parseLong(idUser);
-            Pessoa p1 = Pessoa.getById(idPessoa1);
+            Pessoa p1 = Ebean.find(Pessoa.class, idPessoa1);
 
             Long idPessoa2 = Long.parseLong(idAmigo);
-            Pessoa p2 = Pessoa.getById(idPessoa2);
+            Pessoa p2 = Ebean.find(Pessoa.class, idPessoa2);
 
             boolean alreadyFriends = false;
             for(Pessoa p : p1.getAmigos()){

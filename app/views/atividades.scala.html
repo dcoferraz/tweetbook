@@ -56,7 +56,7 @@
                         <div class="card-action">
                             <a href="javascript:like(@post.getId)">
                                 <i
-                                class="material-icons @if(post.didHeLike(session.get("conectedId"), post.getId)){blue-text}"
+                                class="material-icons @if(post.hasLiked(session.get("conectedId"))){blue-text}"
                                 id="like-@post.getId">thumb_up
                                 </i>
                             </a>

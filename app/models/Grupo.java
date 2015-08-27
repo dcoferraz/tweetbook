@@ -1,9 +1,11 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import play.data.validation.Constraints.Required;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,6 +37,7 @@ public class Grupo extends Model{
     List<Pessoa> participantes;
 
     public Grupo() {
+        this.participantes = new ArrayList<>();
     }
 
     public Long getId() {

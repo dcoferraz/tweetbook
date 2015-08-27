@@ -166,6 +166,35 @@ function addAmigo(idUser, idAmigo) {
  * @description Opens Modal to invite friends to group
  */
 function invite(idGrupo) {
+
+    $.ajax({
+        url: '/getPessoas',
+        data: {},
+        method: "GET",
+        success: function (data) {
+            if (data == "erro") {
+                alert("Erro... :(");
+                return;
+            }
+
+            $("#modal-content ul").empty();
+
+            console.log(data);
+
+            $(data).each(function (i, e) {
+                console.log(e);
+                var pessoaDOMString = '<li class="collection-item avatar"><img src="'+e["urlImagem"]+'" alt="'+e["nome"]+'" class="circle"><span class="title">'+e["nome"]+'</span>'+
+                    '<a href="javascript:addParticipante('+idGrupo+','+e["id"]+')" class="secondary-content"><i class="material-icons grey-text" id="user-'+e["id"]+'">group_add</i></a></li>';
+                $("#modal-content ul").append(pessoaDOMString);
+            });
+
+        },
+        error: function () {
+            Materialize.toast("Ocorreu um erro carregar os comentarios... Tente novamente mais tarde!", 4000);
+        }
+    });
+
+    $('#idGrupo').val(idGrupo);
     $('#inviteModal').openModal();
 }
 
@@ -195,7 +224,7 @@ function addParticipante(idGrupo, idParticipante) {
             Materialize.toast('<span>Adicionado com sucesso</span><a class="btn-flat yellow-text" href="#!">OK<a>', 4000);
         },
         error: function () {
-            alert("Ocorreu um erro ao adicionar um amigo... Tente novamente mais tarde!");
+            Materialize.toast("Ocorreu um erro ao adicionar um amigo... Tente novamente mais tarde!");
         }
     });
 }
@@ -207,46 +236,25 @@ function addParticipante(idGrupo, idParticipante) {
  */
 function addGroup() {
 
-    var ativo = $('#ativo:checked').val();
-    var publico = $('#publico:checked').val();
+    var ativo = $('#ativo').is(':checked');
+    var publico = $('#publico').is(':checked');
     var groupName = $('#groupName').val();
     var idUser = $('#idUser').val();
 
-
-    if(ativo == undefined){
-        ativo = false;
-    }else {
-        ativo = true;
-    }
-
-    if(publico == undefined){
-        publico = false;
-    }else {
-        publico = true;
-    }
-
-    alert('Ativo: '+ativo + '\nPublico: ' + publico + '\nGroup Name: ' + groupName + '\nidUser: >' + idUser + '<');
-
-
-
     $.ajax({
         url: '/addGroup',
-        data: {"idUser": idUser, "publico": publico, "ativo": ativo, "nome": nome},
+        data: {"idUser": idUser, "publico": publico, "ativo": ativo, "nome": groupName},
         method: "GET",
         success: function (data) {
 
             if (data == "ok") {
                 Materialize.toast('<span>Grupo adicionado com sucesso</span><a class="btn-flat yellow-text" href="#!">OK<a>', 4000);
-                return;
             }
 
-            /*$addFriend.removeClass("green-text");
-            $addFriend.addClass("red-text");
-            $addFriend.text('cancel');
-            Materialize.toast('<span>Adicionado com sucesso</span><a class="btn-flat green-text" href="#!">OK<a>', 4000);*/
+            return;
         },
         error: function () {
-            alert("Ocorreu um erro ao adicionar um grupo... Tente novamente mais tarde!");
+            Materialize.toast("Ocorreu um erro ao adicionar um grupo... Tente novamente mais tarde!");
         }
     });
 }

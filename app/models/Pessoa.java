@@ -4,12 +4,10 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.SqlRow;
 import com.avaje.ebean.SqlUpdate;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import play.data.validation.Constraints.Required;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +68,7 @@ public class Pessoa extends Model {
     @OneToMany
     private List<Grupo> gruposCriados;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "grupo_participantes",
@@ -224,6 +223,22 @@ public class Pessoa extends Model {
         this.curtidas = curtidas;
     }
 
+    public List<Post> getPostagens() {
+        return postagens;
+    }
+
+    public void setPostagens(List<Post> postagens) {
+        this.postagens = postagens;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
     /* ACCESS TO DB */
 
     /**
@@ -233,7 +248,7 @@ public class Pessoa extends Model {
      * @param senha
      * @return Long
      */
-    public Long authLogin(String email, String senha) {
+    public static Long authLogin(String email, String senha) {
 
         System.out.println("/*****Received*****/\n Login: " + email + "\n Senha: " + senha);
 
@@ -251,28 +266,6 @@ public class Pessoa extends Model {
                 return p.getId();
             }
         }
-        return null;
-    }
-
-    /**
-     * get a Person object through its id
-     *
-     * @param id
-     * @return Pessoa
-     */
-    public static Pessoa getById(Long id) {
-
-        Pessoa p = Ebean.find(Pessoa.class)
-                .where().eq("id", id)
-                .findUnique();
-
-        if (p != null) {
-            if (p.getId() != null) {
-                System.out.println("2// Achou: " + p.getId());
-                return p;
-            }
-        }
-
         return null;
     }
 
@@ -300,64 +293,10 @@ public class Pessoa extends Model {
         return null;
     }
 
-    /**
-     * Checks if a user liked a post
-     *
-     * @param idPessoa
-     * @param idPost
-     * @return boolean
-     */
-    public Boolean didHeLike(Long idPessoa, Long idPost) {
-        String sql = "select l.idPost, l.idPessoa " +
-                "from posts_curtidas l join post p on p.id = l.idPost" +
-                " where l.idPost = :idPost and l.idPessoa = :idPessoa";
-
-        SqlRow bug = Ebean.createSqlQuery(sql)
-                .setParameter("idPost", idPost)
-                .setParameter("idPessoa", idPessoa)
-                .findUnique();
-
-        boolean alreadyLiked = false;
-        if(bug != null && !bug.equals("")){
-            String post = bug.getString("idPost") != null ? bug.getString("idPost") : "";
-            String pessoa   = bug.getString("idPessoa");
-
-
-            if(pessoa != null && pessoa != ""){//TODO: make appropriate check
-                alreadyLiked = true;
-            }
-        }
-        return alreadyLiked;
-    }
-
-
-    /**
-     * removes a like for a post
-     *
-     * @param idPostAjax
-     * @param idPessoa
-     * @return boolean
-     */
-    public static boolean removeLike(Long idPostAjax, Long idPessoa) {
-        String sql = "delete from posts_curtidas where idPost = :idPost and idPessoa = :idPessoa";
-
-        SqlUpdate update = Ebean.createSqlUpdate(sql)
-                .setParameter("idPost", idPostAjax)
-                .setParameter("idPessoa", idPessoa);
-
-        int rows = update.execute();
-
-        if(rows > 1){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
     public List<String> getAmigosId(){
         List<String>amigosId = new ArrayList<>();
 
-        for(Pessoa amigo : getAmigos()) {
+        for(Pessoa amigo : this.getAmigos()) {
             amigosId.add(amigo.getId().toString());
         }
 

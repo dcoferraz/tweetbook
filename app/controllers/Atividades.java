@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Transactional;
 import models.Pessoa;
 import models.Post;
@@ -22,10 +23,9 @@ public class Atividades extends Controller {
      */
     public Result index() {
 
-        Post p = new Post();
         Long idPessoa = Long.parseLong(session().get("conectedId"));
-        List<Post> lp = p.timelinePostsById(idPessoa);
+        Pessoa currentUser = Ebean.find(Pessoa.class, idPessoa);
 
-        return ok(atividades.render(lp));
+        return ok(atividades.render(currentUser.getPostagens()));
     }
 }
