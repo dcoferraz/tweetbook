@@ -52,6 +52,7 @@ create table post (
   postado_em                datetime(6) not null,
   ativo                     tinyint(1) default 0 not null,
   criador_id                bigint not null,
+  grupo_id                  bigint,
   constraint pk_post primary key (id))
 ;
 
@@ -89,6 +90,8 @@ alter table grupo add constraint fk_grupo_criador_4 foreign key (criador_id) ref
 create index ix_grupo_criador_4 on grupo (criador_id);
 alter table post add constraint fk_post_criador_5 foreign key (criador_id) references pessoa (id) on delete restrict on update restrict;
 create index ix_post_criador_5 on post (criador_id);
+alter table post add constraint fk_post_grupo_6 foreign key (grupo_id) references grupo (id) on delete restrict on update restrict;
+create index ix_post_grupo_6 on post (grupo_id);
 
 
 

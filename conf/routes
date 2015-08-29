@@ -44,9 +44,9 @@ GET         /addGroup                 controllers.Grupos.addGroup(idUser:String,
 GET         /addParticipante          controllers.Grupos.addParticipante(idGrupo:String,idParticipante:String)
 
 
-# Evento
+# Eventos
 # ~~~~
-GET         /evento                   controllers.Evento.index()
+GET         /evento                   controllers.Eventos.index()
 
 
 # Map static resources from the /public folder to the /assets URL path

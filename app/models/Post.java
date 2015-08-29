@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.SqlRow;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.Required;
@@ -43,6 +44,10 @@ public class Post extends Model {
 
     @OneToMany
     private List<Comentario> comentarios;
+
+    @JsonIgnore
+    @ManyToOne
+    private Grupo grupo;
 
     public Post() {
     }
@@ -101,6 +106,14 @@ public class Post extends Model {
 
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
     }
 
     /**

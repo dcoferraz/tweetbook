@@ -26,6 +26,8 @@ public class Atividades extends Controller {
         Long idPessoa = Long.parseLong(session().get("conectedId"));
         Pessoa currentUser = Ebean.find(Pessoa.class, idPessoa);
 
-        return ok(atividades.render(currentUser.getPostagens()));
+        List<Post> postagens = currentUser.getPostagens();
+
+        return ok(atividades.render(postagens));
     }
 }

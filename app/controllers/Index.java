@@ -60,6 +60,7 @@ public class Index extends Controller {
                 Pessoa p = Ebean.find(Pessoa.class, pessoaId);
 
                 session().put("conected", p.getNome());
+                session().put("conectedImg", p.getUrlImagem());
                 session().put("showMenu", "true");
                 session().put("conectedId", pessoaId.toString());
 

@@ -184,7 +184,9 @@ function invite(idGrupo) {
             $(data).each(function (i, e) {
                 console.log(e);
                 var pessoaDOMString = '<li class="collection-item avatar"><img src="'+e["urlImagem"]+'" alt="'+e["nome"]+'" class="circle"><span class="title">'+e["nome"]+'</span>'+
-                    '<a href="javascript:addParticipante('+idGrupo+','+e["id"]+')" class="secondary-content"><i class="material-icons grey-text" id="user-'+e["id"]+'">group_add</i></a></li>';
+                    '<a href="javascript:addParticipante('+idGrupo+',' + e["id"] + ')" class="secondary-content"><i class="material-icons ' +
+                    ($.inArray(idGrupo, e["gruposId"]) > -1 ? 'red-text' : 'green-text') +'" id="user-'+e["id"]+'-'+idGrupo+'">'+
+                    ($.inArray(idGrupo, e["gruposId"]) > -1 ? 'cancel' : 'person_add') + '</i></a></li>';
                 $("#modal-content ul").append(pessoaDOMString);
             });
 
@@ -209,18 +211,20 @@ function addParticipante(idGrupo, idParticipante) {
         data: {"idGrupo": idGrupo, "idParticipante": idParticipante},
         method: "GET",
         success: function (data) {
-            var $addParticipante = $('#user-' + idParticipante);
+            var $addParticipante = $('#user-' + idParticipante + '-' + idGrupo);
 
             if (data == "remove") {
-                $addParticipante.removeClass("green-text");
-                $addParticipante.addClass("grey-text");
+                $addParticipante.removeClass("red-text");
+                $addParticipante.addClass("green-text");
+                $addParticipante.html('person_add');
 
                 Materialize.toast('<span>Removido com sucesso</span><a class="btn-flat yellow-text" href="#!">OK<a>', 4000);
                 return;
             }
 
-            $addParticipante.removeClass("grey-text");
-            $addParticipante.addClass("green-text");
+            $addParticipante.removeClass("green-text");
+            $addParticipante.addClass("red-text");
+            $addParticipante.html('cancel');
             Materialize.toast('<span>Adicionado com sucesso</span><a class="btn-flat yellow-text" href="#!">OK<a>', 4000);
         },
         error: function () {

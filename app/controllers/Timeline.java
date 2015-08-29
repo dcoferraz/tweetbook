@@ -38,7 +38,7 @@ public class Timeline extends Controller {
                 .order("postado_em DESC")
                 .findList();
 
-        return ok(timeline.render(lp));
+        return ok(timeline.render(lp, currentUser));
     }
 
     /**
@@ -63,11 +63,18 @@ public class Timeline extends Controller {
 
             Long idPessoa = Long.parseLong(session().get("conectedId"));
             Pessoa currentUser = Ebean.find(Pessoa.class, idPessoa);
+            Grupo grupoPost = null;
+            if (form.get("post-grupo") != null) {
+                grupoPost = Ebean.find(Grupo.class, Long.parseLong(form.get("post-grupo")));
+            }
 
             p.setAtivo(true);
             p.setConteudo(form.get("post"));
             p.setPostadoEm(dt);
             p.setCriador(currentUser);
+
+            if (grupoPost != null)
+                p.setGrupo(grupoPost);
 
             p.save();
 

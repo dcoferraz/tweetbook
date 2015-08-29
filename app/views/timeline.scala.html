@@ -1,4 +1,4 @@
-@(posts: List[Post])
+@(posts: List[Post], user : Pessoa)
 
 @main("Timeline") {
     <div class="container">
@@ -68,17 +68,18 @@
                                     <label for="post">Post para todo mundo</label>
                                 </div>
 
-                                <br>
                                 <div class="col s12">
                                     <button class="waves-effect waves-teal btn secondary-content btn-timeline right">
-                                        Send</button>
+                                        Enviar</button>
                                 </div>
                             </form>
 
                         </div>
                         <div id="grupo" class="col s12">
-                            <form>
+                            <form method="POST" action="@routes.Timeline.newPost()">
                                 <h5>Compartilhe sua ideia... com um grupo!</h5>
+
+                                <input type="hidden" value="@session.get("conectedId")" name="idPessoa"/>
 
                                 <div class="input-field col s12">
                                     <textarea id="post" name="post" class="materialize-textarea validate" length="180"></textarea>
@@ -88,19 +89,18 @@
                                 <br>
                                 <div class="col s6">
 
-                                    <div class="input-field col s12" style="margin-top : 0 ;">
-                                        <select>
+                                    <div class="input-field col s12" class="validate">
+                                        <select id="post-grupo" name="post-grupo" required>
                                             <option value="" disabled selected>Escolha seu grupo</option>
-                                            <option value="1">Grupo 1</option>
-                                            <option value="2">Grupo 2</option>
-                                            <option value="3">Grupo 3</option>
+                                            @for(grupo <- user.getGrupos()) {
+                                                <option value="@grupo.getId">@grupo.getNome</option>
+                                            }
                                         </select>
-                                        @*<label></label>*@
                                     </div>
                                 </div>
-                                <div class="col s6">
-                                    <buttton class="waves-effect waves-teal btn secondary-content btn-timeline right" style="margin-top : 1 rem ;">
-                                        Send</buttton>
+                                <div class="col s12">
+                                    <button class="waves-effect waves-teal btn secondary-content btn-timeline right">
+                                        Enviar</button>
                                 </div>
                             </form>
 
@@ -131,7 +131,7 @@
 
                                 <div class="col s12">
                                     <a href="javascript:void(0);" class="waves-effect waves-teal btn secondary-content btn-timeline right">
-                                        Send</a>
+                                        Enviar</a>
                                 </div>
                             </form>
                         </div>
@@ -155,7 +155,7 @@
                                 </p>
                                 <div class="col s12">
                                     <a href="javascript:addGroup();" class="waves-effect waves-teal btn secondary-content btn-timeline right">
-                                        Send</a>
+                                        Enviar</a>
                                 </div>
                             </form>
 
@@ -167,7 +167,8 @@
 
             @for(post <- posts) {
 
-                <div class="col s12 l8 offset-l4">
+                <div class="col s12 l8 offset-l4" id="post-@post.getId">
+                    <input type="hidden" value=" @if(post.getGrupo() != null) { @post.getGrupo().getId() }" />
                     <div class="card small">
                         <div class="card-image">
                             <span class="card-title black-text">@post.getCriador().getNome() disse:</span>

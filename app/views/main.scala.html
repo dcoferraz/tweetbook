@@ -32,7 +32,14 @@
                             <li><a href="/timeline">Timeline</a></li>
                             <li>
                                 <a class="dropdown-button" href="#!" data-activates="dropdown-perfil">
-                                    @session.get("conected")
+@*
+                                    @if((session.get("conectedImg") != null) && !session.get("conectedImg").equals("")) {
+                                        <img src="@session.get("conectedImg")" class="circle" />
+                                    }else {
+                                        <i class="material-icons circle">person</i>
+                                    }
+*@
+                                    <span>@session.get("conected")</span>
                                     <i class="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>

@@ -5,6 +5,7 @@ import com.avaje.ebean.Model;
 import com.avaje.ebean.SqlRow;
 import com.avaje.ebean.SqlUpdate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import play.data.validation.Constraints.Required;
 
 import javax.persistence.*;
@@ -85,7 +86,7 @@ public class Pessoa extends Model {
     private List<Pessoa> curtidas;
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "criador")
     private List<Post> postagens;
 
     @JsonIgnore
@@ -237,6 +238,18 @@ public class Pessoa extends Model {
 
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
+    }
+
+    @JsonProperty("gruposId")
+    public List<Long> getGruposId() {
+        List<Long> gruposIds = new ArrayList<>();
+
+        if (this.grupos != null) {
+            for(Grupo g : this.grupos) {
+                gruposIds.add(g.getId());
+            }
+        }
+        return gruposIds;
     }
 
     /* ACCESS TO DB */

@@ -68,6 +68,7 @@ public class Twitter extends Controller {
 
 
                                 session().put("conected", p.getNome());
+                                session().put("conectedImg", p.getUrlImagem());
                                 session().put("showMenu", "true");
                                 session().put("conectedId", p.getId().toString());
 

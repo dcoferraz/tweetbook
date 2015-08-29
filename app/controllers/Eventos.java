@@ -6,7 +6,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
-public class Evento extends Controller {
+public class Eventos extends Controller {
 
     /**
      * index renders evento template

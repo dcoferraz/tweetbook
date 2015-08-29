@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import play.data.validation.Constraints.Required;
 
 import javax.persistence.*;
@@ -35,6 +36,9 @@ public class Grupo extends Model{
             inverseJoinColumns = {@JoinColumn(name = "idParticipante", referencedColumnName = "id")}
     )
     List<Pessoa> participantes;
+
+    @OneToMany
+    List<Post> postagens;
 
     public Grupo() {
         this.participantes = new ArrayList<>();
@@ -86,5 +90,32 @@ public class Grupo extends Model{
 
     public void setParticipantes(List<Pessoa> participantes) {
         this.participantes = participantes;
+    }
+
+    public List<Post> getPostagens() {
+        return postagens;
+    }
+
+    public List<Post> addPostagem(Post p)
+    {
+        this.postagens.add(p);
+        return this.postagens;
+    }
+
+    public void setPostagens(List<Post> postagens) {
+        this.postagens = postagens;
+    }
+
+    @JsonProperty("participantesId")
+    public List<Long> getParticipantesId()
+    {
+        List<Long> partIds = new ArrayList<>();
+
+        if (this.getParticipantes() != null) {
+            for(Pessoa g : this.getParticipantes()) {
+                partIds.add(g.getId());
+            }
+        }
+        return partIds;
     }
 }
